@@ -1,5 +1,7 @@
 # Build a Client Project
 
+[Teachers' Project Briefs](https://docs.google.com/a/devbootcamp.com/document/d/1Kmw125hcNvyA_v4e35__TADi5NP88ELdhVfzPSlyAIc/edit?usp=sharing)
+
 ### Learning Competencies
 
 - Interfacing with clients to determine the specification for building an application, in the form of user stories.
