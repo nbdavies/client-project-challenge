@@ -13,6 +13,8 @@ Let's put all of our knowledge thus far to the test and build someone a real web
 
 The goal is for this challenge to simulate (albeit in a compressed form) the process of interacting with clients, building prototypes for them, and iterating based upon their feedback - all while working together as a team and following development and deployment best practices.
 
+Your instructors will act as your clients throughout this project, helping you drive discovery of their requirements. The instructors will not be "difficult clients" &emdash; their goal is to help you find the right questions to ask and will respond as such. This is a low-stakes environment to practice these vital skills.
+
 While you may have the temptation to try to throw a lot of AJAX into this application or turn it into a "single-page application," resist this temptation. There will be plenty of time for exploring JavaScript features later. Focus on defining clear routes, creating clean templates, and testing a "classic" CGI application.
 
 Use the "DBC Rails"-preferred stack:
