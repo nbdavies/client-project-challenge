@@ -20,7 +20,7 @@ While you may have the temptation to try to throw a lot of AJAX into this applic
 Use the "DBC Rails"-preferred stack:
 
 - Practice TDD using RSpec with `factory_girl` and `capybara`
-- [Remove `turbolinks`](die-turbolinks) and `coffee-rails`
+- [Remove `turbolinks`][die-turbolinks] and `coffee-rails`
 
 Remember, to create a new Rails application with certain features enabled / disabled, you can use [command-line switches][cls].  A good start would be `rails --help`.
 
