@@ -16,6 +16,24 @@ ActiveRecord::Schema.define(version: 20160215205413) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+
+  create_table "articles", force: :cascade do |t|
+    t.string   "title",      null: false
+    t.integer  "author_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "versions", force: :cascade do |t|
+    t.integer  "article_id",    null: false
+    t.integer  "author_id",     null: false
+    t.text     "content"
+    t.boolean  "published"
+    t.string   "image_url"
+    t.string   "image_caption"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
   create_table "users", force: :cascade do |t|
     t.string   "username",        null: false
     t.string   "email",           null: false
@@ -23,6 +41,7 @@ ActiveRecord::Schema.define(version: 20160215205413) do
     t.boolean  "admin"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+
   end
 
 end
