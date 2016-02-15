@@ -1,21 +1,13 @@
-# Build a Client Project
+### Synopsis
+This will be a Pokemon themed wiki framework. Visitors will be greeted with a list of recent articles, they will be able to view articles, and they will be able to search for articles. Logged in users will be able to write new articles and edit existing ones, including adding/removing categories. Admins will further be able to delete articles and promote other users to become admins.
 
-[Teachers' Project Briefs](https://docs.google.com/a/devbootcamp.com/document/d/1Kmw125hcNvyA_v4e35__TADi5NP88ELdhVfzPSlyAIc/edit?usp=sharing)
+### Getting Started
+Clone the git repository.
 
-### Learning Competencies
-
-- Interfacing with clients to determine the specification for building an application, in the form of user stories.
-- Using a formal Agile group process to complete a successful development project.
+### Dependencies
+Rails.
 
 ### Summary
-
-Let's put all of our knowledge thus far to the test and build someone a real web application!
-
-The goal is for this challenge to simulate (albeit in a compressed form) the process of interacting with clients, building prototypes for them, and iterating based upon their feedback - all while working together as a team and following development and deployment best practices.
-
-Your instructors will act as your clients throughout this project, helping you drive discovery of their requirements. The instructors will not be "difficult clients" - their goal is to help you find the right questions to ask and will respond as such. This is a low-stakes environment to practice these vital skills.
-
-While you may have the temptation to try to throw a lot of AJAX into this application or turn it into a "single-page application," resist this temptation. There will be plenty of time for exploring JavaScript features later. Focus on defining clear routes, creating clean templates, and testing a "classic" CGI application.
 
 Use the "DBC Rails"-preferred stack:
 
