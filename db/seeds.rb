@@ -7,6 +7,7 @@ regular_user2 = User.create!(username: "b", email: "b", password: "b", admin: fa
 article1 = Article.create!(title: "first article", author_id: regular_user1.id)
 
 5.times do
+
   Version.create!(article_id: article1.id, author_id: regular_user1.id, content: Faker::Hipster.sentence, published: false, image_url: "http://cdn.smosh.com/sites/default/files/ftpuploads/bloguploads/0913/band-memes-ronburgundy.jpg", image_caption: "YOOOO"  )
 end
 
@@ -32,3 +33,4 @@ end
 16.times do
   Categorization.create!(category_id: rand(10), version_id: rand(24))
 end
+

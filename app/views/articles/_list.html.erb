@@ -7,3 +7,7 @@
 	<% end %>
 	</ul>
 <% end %>
+
+<% if current_user %>
+  <%= link_to "Create a new article", new_article_path %>
+<% end %>
