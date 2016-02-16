@@ -1,0 +1,909 @@
+  [1m[36m (120.0ms)[0m  [1mDROP DATABASE IF EXISTS "pokepedia_test"[0m
+  [1m[35m (241.1ms)[0m  CREATE DATABASE "pokepedia_test" ENCODING = 'unicode'
+  [1m[36mSQL (0.6ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (5.9ms)[0m  CREATE TABLE "articles" ("id" serial primary key, "title" character varying NOT NULL, "author_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (4.8ms)[0m  [1mCREATE TABLE "categories" ("id" serial primary key, "name" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (2.7ms)[0m  CREATE TABLE "categorizations" ("id" serial primary key, "category_id" integer, "version_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (3.3ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "username" character varying NOT NULL, "email" character varying NOT NULL, "password_digest" character varying NOT NULL, "admin" boolean DEFAULT 'f', "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (3.6ms)[0m  CREATE TABLE "versions" ("id" serial primary key, "article_id" integer NOT NULL, "author_id" integer NOT NULL, "content" text, "published" boolean, "image_url" character varying, "image_caption" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (1.5ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL) [0m
+  [1m[35m (1.1ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36m (0.5ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (0.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160215205413')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160215200304')[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160215205309')
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160215205320')[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160215205334')
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.6ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'jenifer' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'garnet.bayer@jakubowski.info' LIMIT 1[0m
+  [1m[35mSQL (1.8ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "jenifer"], ["email", "garnet.bayer@jakubowski.info"], ["admin", "t"], ["password_digest", "$2a$04$6pjVZAU.Nazx3zvqMVzAiue/QLK.oLU2VPzjxTkJQPpuThYUkKEMO"], ["created_at", "2016-02-16 14:48:55.662813"], ["updated_at", "2016-02-16 14:48:55.662813"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["author_id", 1], ["title", "fugiat"], ["created_at", "2016-02-16 14:48:55.671422"], ["updated_at", "2016-02-16 14:48:55.671422"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'cielo' LIMIT 1
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'gunnar.legros@boyle.org' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "cielo"], ["email", "gunnar.legros@boyle.org"], ["admin", "t"], ["password_digest", "$2a$04$sNetcY16H39RJX6bmHGYcuwg4yw/K6rhxggd/Y03AHRTOiSEShJgW"], ["created_at", "2016-02-16 14:48:55.678794"], ["updated_at", "2016-02-16 14:48:55.678794"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'camille' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'earline@reilly.io' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "camille"], ["email", "earline@reilly.io"], ["admin", "t"], ["password_digest", "$2a$04$aPS5UraTK7l95TLWKxAJKuRX/kbjKvoYGOgW7WFT9nwxolYp0bj0K"], ["created_at", "2016-02-16 14:48:55.689413"], ["updated_at", "2016-02-16 14:48:55.689413"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE ("users"."username" = 'camille' AND "users"."id" != 3) LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE ("users"."email" = 'earline@reilly.io' AND "users"."id" != 3) LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" IS NULL LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'darwin.tillman@yost.co' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'deon_streich' LIMIT 1[0m
+  [1m[35mUser Exists (0.1ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" IS NULL LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'declan' LIMIT 1
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'nick@nick.com' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "declan"], ["email", "nick@nick.com"], ["admin", "t"], ["password_digest", "$2a$04$zXZjgMBKquKWVD4a5VlZWuSec180cWP1p4X18zkn7.B/LO3vMLf.a"], ["created_at", "2016-02-16 14:48:55.709474"], ["updated_at", "2016-02-16 14:48:55.709474"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'rashad_schmidt' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'nick@nick.com' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'mafalda_fadel' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'marlen@zemlak.net' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "mafalda_fadel"], ["email", "marlen@zemlak.net"], ["admin", "t"], ["password_digest", "$2a$04$CEZlt.dTBJ0SOcDtgvHhduSwvgVfrjAOlXAjOs8EsGR.JpELvt6c6"], ["created_at", "2016-02-16 14:48:55.728706"], ["updated_at", "2016-02-16 14:48:55.728706"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["author_id", 5], ["title", "quia"], ["created_at", "2016-02-16 14:48:55.730993"], ["updated_at", "2016-02-16 14:48:55.730993"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'hans.koelpin' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'valentine@mclaughlin.biz' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "hans.koelpin"], ["email", "valentine@mclaughlin.biz"], ["admin", "t"], ["password_digest", "$2a$04$BC5AAOkazIoT/1tAKMB1r.J3rzH98JxU39SluZKtMROMdAoBlgwb."], ["created_at", "2016-02-16 14:48:55.736865"], ["updated_at", "2016-02-16 14:48:55.736865"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "versions" ("article_id", "author_id", "content", "published", "image_url", "image_caption", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["article_id", 2], ["author_id", 6], ["content", "Sequi ipsum esse quia. Quisquam doloribus ut quia voluptas. Aut et aut sed cum. Omnis aut quibusdam."], ["published", "f"], ["image_url", "https://robohash.org/ametremquos.png?size=300x300&set=set1"], ["image_caption", "Et ab fugiat enim suscipit beatae ullam repellat."], ["created_at", "2016-02-16 14:48:55.740274"], ["updated_at", "2016-02-16 14:48:55.740274"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'adan.hauck' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'fanny.gulgowski@spinka.net' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "adan.hauck"], ["email", "fanny.gulgowski@spinka.net"], ["admin", "t"], ["password_digest", "$2a$04$KAhJU6IMfpOFhq6AlBqAnupY0UOV7jqJlwSeYSzSMUsot.5Z0h/Fm"], ["created_at", "2016-02-16 14:48:55.748220"], ["updated_at", "2016-02-16 14:48:55.748220"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'edwardo' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'sydnie@jacobsoncorkery.biz' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "edwardo"], ["email", "sydnie@jacobsoncorkery.biz"], ["admin", "t"], ["password_digest", "$2a$04$3NmhfWH9r0QKQCiyK3svmepDxCtDBNCVflu892Vp8Uo34yxacTekO"], ["created_at", "2016-02-16 14:48:55.757979"], ["updated_at", "2016-02-16 14:48:55.757979"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["author_id", 8], ["title", "aut"], ["created_at", "2016-02-16 14:48:55.760357"], ["updated_at", "2016-02-16 14:48:55.760357"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.6ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'elise.kirlin' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'rupert@rueckermclaughlin.biz' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "elise.kirlin"], ["email", "rupert@rueckermclaughlin.biz"], ["admin", "t"], ["password_digest", "$2a$04$nfyT9eww6G1sJY6mNcmElef2C5MU7y/GSwAkM8sPQgtMtg8ivpI0."], ["created_at", "2016-02-16 14:58:24.184498"], ["updated_at", "2016-02-16 14:58:24.184498"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["author_id", 9], ["title", "cumque"], ["created_at", "2016-02-16 14:58:24.190784"], ["updated_at", "2016-02-16 14:58:24.190784"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'ozella' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'demarco.osinski@gusikowski.com' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "ozella"], ["email", "demarco.osinski@gusikowski.com"], ["admin", "t"], ["password_digest", "$2a$04$hk6GMPB9bCi4sr3bO.dHsuTsakUO75h0YmhRBiRo0PrrxZPnHuH/O"], ["created_at", "2016-02-16 14:58:24.198003"], ["updated_at", "2016-02-16 14:58:24.198003"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'jerry_beier' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'reuben.homenick@orn.co' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "jerry_beier"], ["email", "reuben.homenick@orn.co"], ["admin", "t"], ["password_digest", "$2a$04$DKe8UCYsHCcWLJyv7Bh5puBPzoxOO0x4eoDsXLpkWqux/L00SZEw6"], ["created_at", "2016-02-16 14:58:24.207546"], ["updated_at", "2016-02-16 14:58:24.207546"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["author_id", 11], ["title", "architecto"], ["created_at", "2016-02-16 14:58:24.209545"], ["updated_at", "2016-02-16 14:58:24.209545"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'sadie' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'dylan@reynolds.net' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "sadie"], ["email", "dylan@reynolds.net"], ["admin", "t"], ["password_digest", "$2a$04$SIny1maII5x2DH6NydMK0eJcMjCtzbR9cT6oVuDpXxdXO/.KWa/yW"], ["created_at", "2016-02-16 14:58:24.220786"], ["updated_at", "2016-02-16 14:58:24.220786"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mVersion Load (0.3ms)[0m  [1mSELECT  "versions".* FROM "versions" WHERE "versions"."article_id" = $1  ORDER BY "versions"."id" DESC LIMIT 1[0m  [["article_id", 5]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'ari_simonis' LIMIT 1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'waino@bosco.info' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "ari_simonis"], ["email", "waino@bosco.info"], ["admin", "t"], ["password_digest", "$2a$04$UTZ2uaJ.rDlqV/ycyIODCu0Ni12oCGkKx5k8Fnbj2HtDz3L1mFLly"], ["created_at", "2016-02-16 14:58:24.236464"], ["updated_at", "2016-02-16 14:58:24.236464"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["author_id", 13], ["title", "voluptas"], ["created_at", "2016-02-16 14:58:24.239785"], ["updated_at", "2016-02-16 14:58:24.239785"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'riley.schmeler' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'cletus_schowalter@mayer.io' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "riley.schmeler"], ["email", "cletus_schowalter@mayer.io"], ["admin", "t"], ["password_digest", "$2a$04$X6cmt.rgMeA3X6E/pjQofubOR2H5JDqADo83qIlSDPOiFyobBKyum"], ["created_at", "2016-02-16 14:58:24.246486"], ["updated_at", "2016-02-16 14:58:24.246486"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "versions" ("article_id", "author_id", "content", "published", "image_url", "image_caption", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["article_id", 6], ["author_id", 14], ["content", "Consequuntur placeat odit quis sequi. Quos praesentium maiores. Vel numquam doloribus cum deleniti eos. A ducimus modi dolores est unde officiis. Sunt rerum voluptatum excepturi in."], ["published", "t"], ["image_url", "https://robohash.org/temporeetaccusamus.png?size=300x300&set=set1"], ["image_caption", "Et autem excepturi ipsum."], ["created_at", "2016-02-16 14:58:24.249215"], ["updated_at", "2016-02-16 14:58:24.249215"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mVersion Load (0.2ms)[0m  SELECT  "versions".* FROM "versions" WHERE "versions"."article_id" = $1  ORDER BY "versions"."id" DESC LIMIT 1  [["article_id", 6]]
+  [1m[36mVersion Load (0.2ms)[0m  [1mSELECT  "versions".* FROM "versions" WHERE "versions"."article_id" = $1  ORDER BY "versions"."id" DESC LIMIT 1[0m  [["article_id", 6]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'pamela' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'lilian@mueller.name' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "pamela"], ["email", "lilian@mueller.name"], ["admin", "t"], ["password_digest", "$2a$04$CzCDK9NjEYNlDeLWnuZidePUjK1YxrSSGebfef95pHiU.q0dRPUiW"], ["created_at", "2016-02-16 14:58:24.257854"], ["updated_at", "2016-02-16 14:58:24.257854"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE ("users"."username" = 'pamela' AND "users"."id" != 15) LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE ("users"."email" = 'lilian@mueller.name' AND "users"."id" != 15) LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" IS NULL LIMIT 1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'jameson@spinka.co' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'emil.padberg' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" IS NULL LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'koby.jenkins' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'nick@nick.com' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "koby.jenkins"], ["email", "nick@nick.com"], ["admin", "t"], ["password_digest", "$2a$04$GclXjABrRddunCVjv/mqLuSQtcjEmtThW/uGDyJYwL/2f8jVI89fO"], ["created_at", "2016-02-16 14:58:24.276642"], ["updated_at", "2016-02-16 14:58:24.276642"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'nyah.lueilwitz' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'nick@nick.com' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'keagan' LIMIT 1[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'claudine.parker@wolff.com' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "keagan"], ["email", "claudine.parker@wolff.com"], ["admin", "t"], ["password_digest", "$2a$04$2x42HxKEqRDi54YYH6oVmeeqBEx6UYLaToH2zX9S0s7lwePg8K4Ci"], ["created_at", "2016-02-16 14:58:24.288102"], ["updated_at", "2016-02-16 14:58:24.288102"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["author_id", 17], ["title", "voluptas"], ["created_at", "2016-02-16 14:58:24.290759"], ["updated_at", "2016-02-16 14:58:24.290759"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'rae_champlin' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'scot@erdman.info' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "rae_champlin"], ["email", "scot@erdman.info"], ["admin", "t"], ["password_digest", "$2a$04$O5CWCMIx4HqQCPs1Q427BuhvPumIToYo7eMO7QEK/y9..ELGyE3.y"], ["created_at", "2016-02-16 14:58:24.295865"], ["updated_at", "2016-02-16 14:58:24.295865"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "versions" ("article_id", "author_id", "content", "published", "image_url", "image_caption", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["article_id", 7], ["author_id", 18], ["content", "Magni unde dolorem eos ut ut facilis totam. Vel est distinctio excepturi libero sunt sit ea. Sint nobis suscipit harum veritatis aperiam optio est."], ["published", "t"], ["image_url", "https://robohash.org/quiexquisquam.png?size=300x300&set=set1"], ["image_caption", "Sint qui nesciunt error cumque nisi laborum dolorum."], ["created_at", "2016-02-16 14:58:24.298338"], ["updated_at", "2016-02-16 14:58:24.298338"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'brycen' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'tito@olson.co' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "brycen"], ["email", "tito@olson.co"], ["admin", "t"], ["password_digest", "$2a$04$yFTIHUviWWOAtjugHjIwVOCiUSKx/erGYUQKsKgMrEy1DIwDtOwuq"], ["created_at", "2016-02-16 14:58:24.305735"], ["updated_at", "2016-02-16 14:58:24.305735"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'kayleigh' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'shaun@west.io' LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "kayleigh"], ["email", "shaun@west.io"], ["admin", "t"], ["password_digest", "$2a$04$fN6JeG7H/MLVIWKQSymbOuNjTVefhk5TgcfTpCqoQYYCrC1TTAJ3q"], ["created_at", "2016-02-16 14:58:24.314644"], ["updated_at", "2016-02-16 14:58:24.314644"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["author_id", 20], ["title", "magni"], ["created_at", "2016-02-16 14:58:24.317062"], ["updated_at", "2016-02-16 14:58:24.317062"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.6ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'arianna' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'fausto@kerlukeswift.biz' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "arianna"], ["email", "fausto@kerlukeswift.biz"], ["admin", "t"], ["password_digest", "$2a$04$yirdsaN1Jt9CQC6J1y9QIuNo9c0QUDtmMKVYulblveV6fTGc7mk/6"], ["created_at", "2016-02-16 14:58:59.316833"], ["updated_at", "2016-02-16 14:58:59.316833"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["author_id", 21], ["title", "inventore"], ["created_at", "2016-02-16 14:58:59.323622"], ["updated_at", "2016-02-16 14:58:59.323622"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'eudora' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'nathanial_huels@roob.com' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "eudora"], ["email", "nathanial_huels@roob.com"], ["admin", "t"], ["password_digest", "$2a$04$vt1wptyBEmxce8iR3SiIjOTz9t0uexlIR8WwIvEXSulTDCgvvxZ8."], ["created_at", "2016-02-16 14:58:59.330780"], ["updated_at", "2016-02-16 14:58:59.330780"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'robert' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'irwin@schroeder.net' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "robert"], ["email", "irwin@schroeder.net"], ["admin", "t"], ["password_digest", "$2a$04$2KNMmjjt68djJ9yYjn37teyIr9TxMiQwfC25uojVpCvKk7CGdmYlG"], ["created_at", "2016-02-16 14:58:59.340585"], ["updated_at", "2016-02-16 14:58:59.340585"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["author_id", 23], ["title", "tenetur"], ["created_at", "2016-02-16 14:58:59.342765"], ["updated_at", "2016-02-16 14:58:59.342765"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'abdiel_stark' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'merlin@king.info' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "abdiel_stark"], ["email", "merlin@king.info"], ["admin", "t"], ["password_digest", "$2a$04$bEXVqeCyzrK0LVOaL187a.9.dLztO/ciHnk3xmhCPYTLr/ZttnWfa"], ["created_at", "2016-02-16 14:58:59.354642"], ["updated_at", "2016-02-16 14:58:59.354642"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "versions" ("article_id", "author_id", "content", "published", "image_url", "image_caption", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["article_id", 10], ["author_id", 24], ["content", "Ut eos et ut et aut ea. Corrupti officia ea unde ullam. Error et dolores aut placeat. Maxime aperiam nihil. Eos praesentium quasi deleniti rerum."], ["published", "t"], ["image_url", "https://robohash.org/isteetnulla.png?size=300x300&set=set1"], ["image_caption", "Quae sit distinctio reiciendis."], ["created_at", "2016-02-16 14:58:59.357872"], ["updated_at", "2016-02-16 14:58:59.357872"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mVersion Load (0.3ms)[0m  SELECT  "versions".* FROM "versions" WHERE "versions"."article_id" = $1  ORDER BY "versions"."id" DESC LIMIT 1  [["article_id", 10]]
+  [1m[36mVersion Load (0.2ms)[0m  [1mSELECT  "versions".* FROM "versions" WHERE "versions"."article_id" = $1  ORDER BY "versions"."id" DESC LIMIT 1[0m  [["article_id", 10]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'easter_frami' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'domenic@ohara.name' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "easter_frami"], ["email", "domenic@ohara.name"], ["admin", "t"], ["password_digest", "$2a$04$EOA3A/L8nTf1EObIuPyL6eSxK337jZ.bxFshxwTAwvfKSXyJrjv3."], ["created_at", "2016-02-16 14:58:59.375226"], ["updated_at", "2016-02-16 14:58:59.375226"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["author_id", 25], ["title", "sit"], ["created_at", "2016-02-16 14:58:59.377464"], ["updated_at", "2016-02-16 14:58:59.377464"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'ruel.mcclure' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'dudley_casper@heelstark.biz' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "ruel.mcclure"], ["email", "dudley_casper@heelstark.biz"], ["admin", "t"], ["password_digest", "$2a$04$tPxEbV1bTUCRKBeNd3x5heRcARSfdD69keLVKAv.KptgePkBYaoFW"], ["created_at", "2016-02-16 14:58:59.382701"], ["updated_at", "2016-02-16 14:58:59.382701"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "versions" ("article_id", "author_id", "content", "published", "image_url", "image_caption", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["article_id", 11], ["author_id", 26], ["content", "Illo quam enim et consequatur veritatis. Deleniti qui assumenda ipsa. Repudiandae voluptatem nulla ipsum nesciunt distinctio."], ["published", "t"], ["image_url", "https://robohash.org/dignissimosassumendaprovident.png?size=300x300&set=set1"], ["image_caption", "Velit totam iure velit aspernatur provident repudiandae."], ["created_at", "2016-02-16 14:58:59.385238"], ["updated_at", "2016-02-16 14:58:59.385238"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mVersion Load (0.2ms)[0m  SELECT  "versions".* FROM "versions" WHERE "versions"."article_id" = $1  ORDER BY "versions"."id" DESC LIMIT 1  [["article_id", 11]]
+  [1m[36mVersion Load (0.2ms)[0m  [1mSELECT  "versions".* FROM "versions" WHERE "versions"."article_id" = $1  ORDER BY "versions"."id" DESC LIMIT 1[0m  [["article_id", 11]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'rodolfo_abshire' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'taya@stracke.co' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "rodolfo_abshire"], ["email", "taya@stracke.co"], ["admin", "t"], ["password_digest", "$2a$04$eihUn7uJskLUvr6l.Pa61.Ea9ZOKmyee.0Eage2qwO0mCBCWm/mAG"], ["created_at", "2016-02-16 14:58:59.393982"], ["updated_at", "2016-02-16 14:58:59.393982"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE ("users"."username" = 'rodolfo_abshire' AND "users"."id" != 27) LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE ("users"."email" = 'taya@stracke.co' AND "users"."id" != 27) LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" IS NULL LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'tevin@loweswaniawski.info' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'bailey' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" IS NULL LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'nyah' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'nick@nick.com' LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "nyah"], ["email", "nick@nick.com"], ["admin", "t"], ["password_digest", "$2a$04$fRCzYHcAuAeP0dWur/ewQe2eZ3hvbiiD.KL2hKA1omy3IYNe6hM.q"], ["created_at", "2016-02-16 14:58:59.413676"], ["updated_at", "2016-02-16 14:58:59.413676"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'merle_okon' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'nick@nick.com' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'greta' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'garry_lockman@wardframi.co' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "greta"], ["email", "garry_lockman@wardframi.co"], ["admin", "t"], ["password_digest", "$2a$04$086ooypLSVocGvkX0K8y9OHTkNtvrsT6z5pf6X/750RN1BzaF1UAe"], ["created_at", "2016-02-16 14:58:59.425810"], ["updated_at", "2016-02-16 14:58:59.425810"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["author_id", 29], ["title", "est"], ["created_at", "2016-02-16 14:58:59.428275"], ["updated_at", "2016-02-16 14:58:59.428275"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'citlalli_stark' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'ricardo.bernier@macgyvercollins.info' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "citlalli_stark"], ["email", "ricardo.bernier@macgyvercollins.info"], ["admin", "t"], ["password_digest", "$2a$04$fBDKu/5qoud0V6pzUTdabunPJC6skulTnN6Eyw6/v3Om6BXrXjqoO"], ["created_at", "2016-02-16 14:58:59.433718"], ["updated_at", "2016-02-16 14:58:59.433718"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "versions" ("article_id", "author_id", "content", "published", "image_url", "image_caption", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["article_id", 12], ["author_id", 30], ["content", "Accusantium autem occaecati aut. Praesentium molestiae quo adipisci cupiditate. Ratione tenetur dolorem. Tenetur voluptatem eius dicta quis libero ea. Quia facere accusamus voluptatem qui."], ["published", "f"], ["image_url", "https://robohash.org/utsimiliquesed.png?size=300x300&set=set1"], ["image_caption", "Soluta fuga animi corrupti sint quod deserunt est."], ["created_at", "2016-02-16 14:58:59.436597"], ["updated_at", "2016-02-16 14:58:59.436597"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'myrna' LIMIT 1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'creola@swaniawski.io' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "myrna"], ["email", "creola@swaniawski.io"], ["admin", "t"], ["password_digest", "$2a$04$XjSLK7dZYxmWyJK1ugeTVONYI9tKHm0rLvCZSaSo0Ii1/gcQ6QZEK"], ["created_at", "2016-02-16 14:58:59.445655"], ["updated_at", "2016-02-16 14:58:59.445655"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'burnice' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'micaela_bayer@prosacco.co' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "burnice"], ["email", "micaela_bayer@prosacco.co"], ["admin", "t"], ["password_digest", "$2a$04$kdS3cVTiPQv1KuBrgJAhKOtEOU/x46FRMeoICHh8v7aoc6oSCl8w."], ["created_at", "2016-02-16 14:58:59.455773"], ["updated_at", "2016-02-16 14:58:59.455773"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["author_id", 32], ["title", "quisquam"], ["created_at", "2016-02-16 14:58:59.459017"], ["updated_at", "2016-02-16 14:58:59.459017"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.6ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'kayley.fahey' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'marianna@runtelesch.info' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "kayley.fahey"], ["email", "marianna@runtelesch.info"], ["admin", "t"], ["password_digest", "$2a$04$G6Ry15pes5SCVSzTElLXc.0PYl.GmSiO2CU0/SNzwC8F0zpN.dehi"], ["created_at", "2016-02-16 14:59:18.039445"], ["updated_at", "2016-02-16 14:59:18.039445"]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["author_id", 33], ["title", "veniam"], ["created_at", "2016-02-16 14:59:18.046150"], ["updated_at", "2016-02-16 14:59:18.046150"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'brad_smitham' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'nikko.greenfelder@steuber.name' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "brad_smitham"], ["email", "nikko.greenfelder@steuber.name"], ["admin", "t"], ["password_digest", "$2a$04$Ugf/uDtyxYwHcTA8C1FPJOfAR3SiPUqM5ykh98x40z0DTZQ4NG1CS"], ["created_at", "2016-02-16 14:59:18.053452"], ["updated_at", "2016-02-16 14:59:18.053452"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'alex' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'chelsie.ledner@yundthirthe.name' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "alex"], ["email", "chelsie.ledner@yundthirthe.name"], ["admin", "t"], ["password_digest", "$2a$04$JqnBYRdfJ63qIQFwkTeowOvSd5MgwEEDEh1Xl3uDXxWCfoebSYH1q"], ["created_at", "2016-02-16 14:59:18.063572"], ["updated_at", "2016-02-16 14:59:18.063572"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["author_id", 35], ["title", "et"], ["created_at", "2016-02-16 14:59:18.065685"], ["updated_at", "2016-02-16 14:59:18.065685"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'adrianna' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'shannon.weimann@berniersipes.com' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "adrianna"], ["email", "shannon.weimann@berniersipes.com"], ["admin", "t"], ["password_digest", "$2a$04$TBVD91Gl4qor8Wqn9r2.feK5.80NV9xtaMwgi5i7YxAXeWlanJxJi"], ["created_at", "2016-02-16 14:59:18.077349"], ["updated_at", "2016-02-16 14:59:18.077349"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "versions" ("article_id", "author_id", "content", "published", "image_url", "image_caption", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["article_id", 15], ["author_id", 36], ["content", "Voluptas ipsa tempore qui in aspernatur quasi. Accusantium nam quia iste sapiente. Illo dolorem sit repellat."], ["published", "t"], ["image_url", "https://robohash.org/abdolordoloremque.png?size=300x300&set=set1"], ["image_caption", "Eius voluptas quod velit."], ["created_at", "2016-02-16 14:59:18.080341"], ["updated_at", "2016-02-16 14:59:18.080341"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mVersion Load (0.3ms)[0m  SELECT  "versions".* FROM "versions" WHERE "versions"."article_id" = $1  ORDER BY "versions"."id" DESC LIMIT 1  [["article_id", 15]]
+  [1m[36mVersion Load (0.2ms)[0m  [1mSELECT  "versions".* FROM "versions" WHERE "versions"."article_id" = $1  ORDER BY "versions"."id" DESC LIMIT 1[0m  [["article_id", 15]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'favian_steuber' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'marjory.green@cormier.name' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "favian_steuber"], ["email", "marjory.green@cormier.name"], ["admin", "t"], ["password_digest", "$2a$04$zDrLFwB9of564f7nnaB2uuegUzIZi1x6FJHdpWDJtWldkTqANDAOi"], ["created_at", "2016-02-16 14:59:18.099427"], ["updated_at", "2016-02-16 14:59:18.099427"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["author_id", 37], ["title", "cum"], ["created_at", "2016-02-16 14:59:18.101672"], ["updated_at", "2016-02-16 14:59:18.101672"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'annette' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'peggie.rowe@corkeryjohnston.info' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "annette"], ["email", "peggie.rowe@corkeryjohnston.info"], ["admin", "t"], ["password_digest", "$2a$04$TDDmbfP5rkWvFHkQcxBOy.4.iLmK.RezLswNhcc4fvTF7qzBD.O9y"], ["created_at", "2016-02-16 14:59:18.106836"], ["updated_at", "2016-02-16 14:59:18.106836"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "versions" ("article_id", "author_id", "content", "published", "image_url", "image_caption", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["article_id", 16], ["author_id", 38], ["content", "Ex animi et cumque quia quo quibusdam. Est saepe ut ut non. Id placeat quaerat voluptas enim. Ut quisquam ratione eum qui est perferendis."], ["published", "t"], ["image_url", "https://robohash.org/fugiatfacilisearum.png?size=300x300&set=set1"], ["image_caption", "Perspiciatis asperiores inventore quam nostrum expedita et sit."], ["created_at", "2016-02-16 14:59:18.109658"], ["updated_at", "2016-02-16 14:59:18.109658"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mVersion Load (0.2ms)[0m  SELECT  "versions".* FROM "versions" WHERE "versions"."article_id" = $1  ORDER BY "versions"."id" DESC LIMIT 1  [["article_id", 16]]
+  [1m[36mVersion Load (0.2ms)[0m  [1mSELECT  "versions".* FROM "versions" WHERE "versions"."article_id" = $1  ORDER BY "versions"."id" DESC LIMIT 1[0m  [["article_id", 16]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'columbus.ullrich' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'maureen@mooreledner.org' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "columbus.ullrich"], ["email", "maureen@mooreledner.org"], ["admin", "t"], ["password_digest", "$2a$04$ub4Wmrn83QjjRihI35yja.O.O/uEPAjag8srB8/K.bodfKjSI8yQe"], ["created_at", "2016-02-16 14:59:18.133376"], ["updated_at", "2016-02-16 14:59:18.133376"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE ("users"."username" = 'columbus.ullrich' AND "users"."id" != 39) LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE ("users"."email" = 'maureen@mooreledner.org' AND "users"."id" != 39) LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" IS NULL LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'adriana@ritchie.com' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'haley' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" IS NULL LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'armando' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'nick@nick.com' LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "armando"], ["email", "nick@nick.com"], ["admin", "t"], ["password_digest", "$2a$04$seL0bseh/Zn2mNb4TxZu6.QAhXZUPpT5E77R5curr/3gUjk2hyNee"], ["created_at", "2016-02-16 14:59:18.153074"], ["updated_at", "2016-02-16 14:59:18.153074"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'boyd.orn' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'nick@nick.com' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'arjun' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'alyon@wehner.org' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "arjun"], ["email", "alyon@wehner.org"], ["admin", "t"], ["password_digest", "$2a$04$/sPKpqZCh2r4PHC6gkjb/.eUoKGJKNioRY8yntN3gbrEiQNRP3nly"], ["created_at", "2016-02-16 14:59:18.164557"], ["updated_at", "2016-02-16 14:59:18.164557"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["author_id", 41], ["title", "corrupti"], ["created_at", "2016-02-16 14:59:18.166807"], ["updated_at", "2016-02-16 14:59:18.166807"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'desmond_bashirian' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'gladyce@mills.io' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "desmond_bashirian"], ["email", "gladyce@mills.io"], ["admin", "t"], ["password_digest", "$2a$04$WdYBQpqu5jsiYWJ1WP5jneFdAzvXXOBWCU2P.k4l71nyOXSmcMSyu"], ["created_at", "2016-02-16 14:59:18.171632"], ["updated_at", "2016-02-16 14:59:18.171632"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "versions" ("article_id", "author_id", "content", "published", "image_url", "image_caption", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["article_id", 17], ["author_id", 42], ["content", "Possimus aliquid alias sunt laudantium consequatur facere. Ad pariatur doloribus. Autem quod voluptatibus perspiciatis."], ["published", "t"], ["image_url", "https://robohash.org/laboriosamnonnesciunt.png?size=300x300&set=set1"], ["image_caption", "Maxime similique eaque molestiae laudantium qui dolorem est."], ["created_at", "2016-02-16 14:59:18.175137"], ["updated_at", "2016-02-16 14:59:18.175137"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'fritz_schoen' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'halie@mitchell.com' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "fritz_schoen"], ["email", "halie@mitchell.com"], ["admin", "t"], ["password_digest", "$2a$04$v3q.FzC92OFPaVA.yYCsXOvRd2tpKVlTWN4xKMXqL7.zxlQrY9Lse"], ["created_at", "2016-02-16 14:59:18.182238"], ["updated_at", "2016-02-16 14:59:18.182238"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'johanna.weinat' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'jefferey.kaulke@runolfsdottirchamplin.io' LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "johanna.weinat"], ["email", "jefferey.kaulke@runolfsdottirchamplin.io"], ["admin", "t"], ["password_digest", "$2a$04$Cb.GPZVHcLGRKcFxsrfZuOiKIFUp.3TivbXCBmi9.uhJOm9oUdm3K"], ["created_at", "2016-02-16 14:59:18.191541"], ["updated_at", "2016-02-16 14:59:18.191541"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["author_id", 44], ["title", "rerum"], ["created_at", "2016-02-16 14:59:18.193598"], ["updated_at", "2016-02-16 14:59:18.193598"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'hildegard.beier' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'isobel@rueckerwillms.name' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "hildegard.beier"], ["email", "isobel@rueckerwillms.name"], ["admin", "t"], ["password_digest", "$2a$04$bGTqLewiguxUOaRl4/j3v.53xwM0y9CqHyAhIGmBFlBJn65oxglKu"], ["created_at", "2016-02-16 14:59:51.787688"], ["updated_at", "2016-02-16 14:59:51.787688"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["author_id", 45], ["title", "distinctio"], ["created_at", "2016-02-16 14:59:51.794175"], ["updated_at", "2016-02-16 14:59:51.794175"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'krista' LIMIT 1
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'montana@deckow.info' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "krista"], ["email", "montana@deckow.info"], ["admin", "t"], ["password_digest", "$2a$04$Jxzxw1w8z7/jGdTZyfwA8.dMCROdXTO1evRL7NHahD925zzacf5Xe"], ["created_at", "2016-02-16 14:59:51.801039"], ["updated_at", "2016-02-16 14:59:51.801039"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'braden' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'devon.paucek@carrollhegmann.info' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "braden"], ["email", "devon.paucek@carrollhegmann.info"], ["admin", "t"], ["password_digest", "$2a$04$kwxFH/6ZcNOE9hpNF1TdHue5yrrIlKGZZcP8AsLUeKYsRFuPVzSq2"], ["created_at", "2016-02-16 14:59:51.810224"], ["updated_at", "2016-02-16 14:59:51.810224"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["author_id", 47], ["title", "doloribus"], ["created_at", "2016-02-16 14:59:51.812127"], ["updated_at", "2016-02-16 14:59:51.812127"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'maximillian' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'isabella_ziemann@frami.info' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "maximillian"], ["email", "isabella_ziemann@frami.info"], ["admin", "t"], ["password_digest", "$2a$04$up/IF/dNT/q/ZpbBYhLl6uLW1jzFgskp0ptB6O6L3OPEK/tn4Weue"], ["created_at", "2016-02-16 14:59:51.823737"], ["updated_at", "2016-02-16 14:59:51.823737"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "versions" ("article_id", "author_id", "content", "published", "image_url", "image_caption", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["article_id", 20], ["author_id", 48], ["content", "Quaerat eos ut illo facere. Tempora et quidem eum aspernatur et. Atque ullam molestiae."], ["published", "t"], ["image_url", "https://robohash.org/etomnisvoluptas.png?size=300x300&set=set1"], ["image_caption", "Sed modi aperiam numquam iure."], ["created_at", "2016-02-16 14:59:51.826649"], ["updated_at", "2016-02-16 14:59:51.826649"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mVersion Load (0.2ms)[0m  SELECT  "versions".* FROM "versions" WHERE "versions"."article_id" = $1  ORDER BY "versions"."id" DESC LIMIT 1  [["article_id", 20]]
+  [1m[36mVersion Load (0.2ms)[0m  [1mSELECT  "versions".* FROM "versions" WHERE "versions"."article_id" = $1  ORDER BY "versions"."id" DESC LIMIT 1[0m  [["article_id", 20]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'vidal' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'minnie.hoppe@monahan.biz' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "vidal"], ["email", "minnie.hoppe@monahan.biz"], ["admin", "t"], ["password_digest", "$2a$04$fYbdtqAZdU4K6inenpDvLe0sj8DdtERMFuLCfk9k9EnSu0lW3se9K"], ["created_at", "2016-02-16 14:59:51.844310"], ["updated_at", "2016-02-16 14:59:51.844310"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["author_id", 49], ["title", "nam"], ["created_at", "2016-02-16 14:59:51.846475"], ["updated_at", "2016-02-16 14:59:51.846475"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'bryana.medhurst' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'adelle_torphy@hahn.org' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "bryana.medhurst"], ["email", "adelle_torphy@hahn.org"], ["admin", "t"], ["password_digest", "$2a$04$PZtxpBRICuiHUCMUZc8oAOXQ8C546vMRSVRT9sHRve/lSBNa4/tq."], ["created_at", "2016-02-16 14:59:51.852425"], ["updated_at", "2016-02-16 14:59:51.852425"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "versions" ("article_id", "author_id", "content", "published", "image_url", "image_caption", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["article_id", 21], ["author_id", 50], ["content", "Atque repudiandae non est in autem reiciendis. Et facere quis odit cumque exercitationem. Et officiis eveniet ex quaerat a."], ["published", "f"], ["image_url", "https://robohash.org/repellendusnesciuntporro.png?size=300x300&set=set1"], ["image_caption", "Laudantium sapiente occaecati error."], ["created_at", "2016-02-16 14:59:51.854818"], ["updated_at", "2016-02-16 14:59:51.854818"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mVersion Load (0.2ms)[0m  SELECT  "versions".* FROM "versions" WHERE "versions"."article_id" = $1  ORDER BY "versions"."id" DESC LIMIT 1  [["article_id", 21]]
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'hertha_okeefe' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'selmer@bode.name' LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "hertha_okeefe"], ["email", "selmer@bode.name"], ["admin", "t"], ["password_digest", "$2a$04$6KpBrUZxfSDeTVSbhouy.Ohi18Yw8uEYNwuCaF/NbtViVlfAXqwK6"], ["created_at", "2016-02-16 14:59:51.862495"], ["updated_at", "2016-02-16 14:59:51.862495"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users" WHERE ("users"."username" = 'hertha_okeefe' AND "users"."id" != 51) LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE ("users"."email" = 'selmer@bode.name' AND "users"."id" != 51) LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" IS NULL LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'brendon@gorczany.name' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'lenora.hegmann' LIMIT 1
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" IS NULL LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'anastasia' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'nick@nick.com' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "anastasia"], ["email", "nick@nick.com"], ["admin", "t"], ["password_digest", "$2a$04$XltHHuxG0V8HpoqdRyBvSeZ.iid61VYXXunP/Cub/YfW748K8i36G"], ["created_at", "2016-02-16 14:59:51.881755"], ["updated_at", "2016-02-16 14:59:51.881755"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'aunta_cole' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'nick@nick.com' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'collin' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'laurine.upton@moen.info' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "collin"], ["email", "laurine.upton@moen.info"], ["admin", "t"], ["password_digest", "$2a$04$Q9aMx7euQ5DlClcuVc9Dbuc9YhoEzjD8vlN49S4P99XCPhYuRxMKa"], ["created_at", "2016-02-16 14:59:51.894161"], ["updated_at", "2016-02-16 14:59:51.894161"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["author_id", 53], ["title", "est"], ["created_at", "2016-02-16 14:59:51.896537"], ["updated_at", "2016-02-16 14:59:51.896537"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'kari_hilpert' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'talon.ledner@nienowprosacco.net' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "kari_hilpert"], ["email", "talon.ledner@nienowprosacco.net"], ["admin", "t"], ["password_digest", "$2a$04$.JXJfLUWBl6fe5RTl4NiuuFU2wSV0O8RovGbnevgXR0yAssFdUbVW"], ["created_at", "2016-02-16 14:59:51.902866"], ["updated_at", "2016-02-16 14:59:51.902866"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "versions" ("article_id", "author_id", "content", "published", "image_url", "image_caption", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["article_id", 22], ["author_id", 54], ["content", "Dolorum totam ut iusto eligendi pariatur. Est ut perspiciatis porro. Voluptatem aut vel voluptatem molestiae laborum provident."], ["published", "f"], ["image_url", "https://robohash.org/fugitullamveniam.png?size=300x300&set=set1"], ["image_caption", "Ad beatae fugit asperiores officiis ipsam aut quo illum."], ["created_at", "2016-02-16 14:59:51.905672"], ["updated_at", "2016-02-16 14:59:51.905672"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'johnnie' LIMIT 1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'diana@lakin.info' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "johnnie"], ["email", "diana@lakin.info"], ["admin", "t"], ["password_digest", "$2a$04$TYAU8ZVYEolQod4mE8AsnOt3xlBKAI0OMsAFsE0UrKVfw.h3Itp6u"], ["created_at", "2016-02-16 14:59:51.913787"], ["updated_at", "2016-02-16 14:59:51.913787"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'lulu.kilback' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'lawrence.watsica@heidenreich.info' LIMIT 1
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "lulu.kilback"], ["email", "lawrence.watsica@heidenreich.info"], ["admin", "t"], ["password_digest", "$2a$04$E0uPZJ3AfBgxOxXrhmbm6.ozsmiVJuj3d7vdPJX8GV7JgZt.ynk/G"], ["created_at", "2016-02-16 14:59:51.923092"], ["updated_at", "2016-02-16 14:59:51.923092"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["author_id", 56], ["title", "a"], ["created_at", "2016-02-16 14:59:51.926417"], ["updated_at", "2016-02-16 14:59:51.926417"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.6ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'ken.lehner' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'tyrese@kutch.io' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "ken.lehner"], ["email", "tyrese@kutch.io"], ["admin", "t"], ["password_digest", "$2a$04$De7FcCfVzSGd1bDOMvlZmOlPBX86Aq8yflaTScc68Ey5EP0lq6bRq"], ["created_at", "2016-02-16 15:05:36.125302"], ["updated_at", "2016-02-16 15:05:36.125302"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["author_id", 57], ["title", "modi"], ["created_at", "2016-02-16 15:05:36.131845"], ["updated_at", "2016-02-16 15:05:36.131845"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'jailyn' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'georgette_nienow@schuppe.io' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "jailyn"], ["email", "georgette_nienow@schuppe.io"], ["admin", "t"], ["password_digest", "$2a$04$8CITVfYBKa/.5duRD2cDu.EtPnExBhhSZj2ecAPp0FcSchbn/4vuO"], ["created_at", "2016-02-16 15:05:36.138929"], ["updated_at", "2016-02-16 15:05:36.138929"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'tavares' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'vernice_wuckert@metz.biz' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "tavares"], ["email", "vernice_wuckert@metz.biz"], ["admin", "t"], ["password_digest", "$2a$04$CN8jYkF.iIXx8ogYuOWYeer9UgEERgTg4g7V50krsUoSMiC7Zuhdm"], ["created_at", "2016-02-16 15:05:36.148777"], ["updated_at", "2016-02-16 15:05:36.148777"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["author_id", 59], ["title", "omnis"], ["created_at", "2016-02-16 15:05:36.150941"], ["updated_at", "2016-02-16 15:05:36.150941"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'amber' LIMIT 1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'yvette_runte@monahan.co' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "amber"], ["email", "yvette_runte@monahan.co"], ["admin", "t"], ["password_digest", "$2a$04$JKbHW5lRzwYYTyR9nvFfPuAHMkCFFkf56wFqFlc/lubWDVWvyd9Dq"], ["created_at", "2016-02-16 15:05:36.163199"], ["updated_at", "2016-02-16 15:05:36.163199"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "versions" ("article_id", "author_id", "content", "published", "image_url", "image_caption", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["article_id", 25], ["author_id", 60], ["content", "Nemo blanditiis praesentium ut libero modi dolorum necessitatibus. Soluta voluptas ut et. Rerum id molestiae doloremque porro rerum. Vitae debitis similique sed quo maxime quod ipsum. Ea excepturi dolor sed."], ["published", "t"], ["image_url", "https://robohash.org/harumquisquamsint.png?size=300x300&set=set1"], ["image_caption", "Libero voluptas optio explicabo dignissimos facilis amet eos."], ["created_at", "2016-02-16 15:05:36.166564"], ["updated_at", "2016-02-16 15:05:36.166564"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mVersion Load (0.3ms)[0m  SELECT  "versions".* FROM "versions" WHERE "versions"."article_id" = $1  ORDER BY "versions"."id" DESC LIMIT 1  [["article_id", 25]]
+  [1m[36mVersion Load (0.2ms)[0m  [1mSELECT  "versions".* FROM "versions" WHERE "versions"."article_id" = $1  ORDER BY "versions"."id" DESC LIMIT 1[0m  [["article_id", 25]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'hudson_fay' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'ralph_rippin@howellglover.com' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "hudson_fay"], ["email", "ralph_rippin@howellglover.com"], ["admin", "t"], ["password_digest", "$2a$04$dilZs1d0naiZwJFh1V6ZDurg9RhThpzYAu0LkinFZH7uKbH8BKiGW"], ["created_at", "2016-02-16 15:05:36.185309"], ["updated_at", "2016-02-16 15:05:36.185309"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["author_id", 61], ["title", "nemo"], ["created_at", "2016-02-16 15:05:36.187654"], ["updated_at", "2016-02-16 15:05:36.187654"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'kristoffer_oreilly' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'dorothea.hane@connmoen.org' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "kristoffer_oreilly"], ["email", "dorothea.hane@connmoen.org"], ["admin", "t"], ["password_digest", "$2a$04$9ZArLw7Nn1U01RwdNq4r9uWU6.xVk9W2LrkR1iUKd09Taf5QItuXe"], ["created_at", "2016-02-16 15:05:36.193159"], ["updated_at", "2016-02-16 15:05:36.193159"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "versions" ("article_id", "author_id", "content", "published", "image_url", "image_caption", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["article_id", 26], ["author_id", 62], ["content", "Totam eius deserunt quis hic quos alias. Laudantium reprehenderit atque mollitia non cumque ex at. Repudiandae odit labore sit molestiae deserunt ratione. Illum architecto debitis quibusdam necessitatibus autem et."], ["published", "f"], ["image_url", "https://robohash.org/eosvoluptasquos.png?size=300x300&set=set1"], ["image_caption", "Et fuga assumenda cum aut qui."], ["created_at", "2016-02-16 15:05:36.195891"], ["updated_at", "2016-02-16 15:05:36.195891"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mVersion Load (0.2ms)[0m  SELECT  "versions".* FROM "versions" WHERE "versions"."article_id" = $1  ORDER BY "versions"."id" DESC LIMIT 1  [["article_id", 26]]
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'theodora' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'braxton@kilbackmcclure.name' LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "theodora"], ["email", "braxton@kilbackmcclure.name"], ["admin", "t"], ["password_digest", "$2a$04$Qa8reHWRszWVMN1GOSJzZuRB439HbmUdi.CuzNEe2Qn4j5gCnKe8q"], ["created_at", "2016-02-16 15:05:36.205430"], ["updated_at", "2016-02-16 15:05:36.205430"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users" WHERE ("users"."username" = 'theodora' AND "users"."id" != 63) LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE ("users"."email" = 'braxton@kilbackmcclure.name' AND "users"."id" != 63) LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" IS NULL LIMIT 1
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'jordane_murray@kovacekrunolfsdottir.co' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'henri' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" IS NULL LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'johan_kutch' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'nick@nick.com' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "johan_kutch"], ["email", "nick@nick.com"], ["admin", "t"], ["password_digest", "$2a$04$GknfkUlUxs1bq6UvNpmeaenJmHgXRpd3VPbIaAmx1kGwI5ax7qAy6"], ["created_at", "2016-02-16 15:05:36.227006"], ["updated_at", "2016-02-16 15:05:36.227006"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'kyra' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'nick@nick.com' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'zora_sawayn' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'giovani_pfeffer@purdydamore.org' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "zora_sawayn"], ["email", "giovani_pfeffer@purdydamore.org"], ["admin", "t"], ["password_digest", "$2a$04$wXZsIcdo/tLEiHp1tw/ofeN8dva1a29d4fbMittvjjaEl6lyBd0.2"], ["created_at", "2016-02-16 15:05:36.239217"], ["updated_at", "2016-02-16 15:05:36.239217"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["author_id", 65], ["title", "vero"], ["created_at", "2016-02-16 15:05:36.241949"], ["updated_at", "2016-02-16 15:05:36.241949"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'edmond.runte' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'solon@shields.net' LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "edmond.runte"], ["email", "solon@shields.net"], ["admin", "t"], ["password_digest", "$2a$04$sxen9xJwsU/bpGfGZE6Wz.VuoE.kvJcdt13jtykAEFtHO53DcsdBi"], ["created_at", "2016-02-16 15:05:36.248705"], ["updated_at", "2016-02-16 15:05:36.248705"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "versions" ("article_id", "author_id", "content", "published", "image_url", "image_caption", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["article_id", 27], ["author_id", 66], ["content", "Sit incidunt ullam eligendi non omnis ducimus. Ut incidunt eos corrupti nemo esse aliquam repellat. Laborum sit voluptatem quia fugit quasi nam. Vel laudantium voluptatum error."], ["published", "f"], ["image_url", "https://robohash.org/hicexcepturisequi.png?size=300x300&set=set1"], ["image_caption", "Accusamus ab veritatis commodi error est enim sapiente id."], ["created_at", "2016-02-16 15:05:36.252146"], ["updated_at", "2016-02-16 15:05:36.252146"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'skylar_heller' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'annalise.weimann@boylemedhurst.info' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "skylar_heller"], ["email", "annalise.weimann@boylemedhurst.info"], ["admin", "t"], ["password_digest", "$2a$04$2NjC5LZ5mOVgMpVRRqUjZOjSH0p//Jl.xS2c4DHQxwpuDiUnMqJ1G"], ["created_at", "2016-02-16 15:05:36.261631"], ["updated_at", "2016-02-16 15:05:36.261631"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'orrin_waters' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'ryder@willmskoelpin.info' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "orrin_waters"], ["email", "ryder@willmskoelpin.info"], ["admin", "t"], ["password_digest", "$2a$04$Nh1zYmcbaaoACdhUhn46wurlwp5KQ9E8lIyNCdzzb1SG9CfIzbnsS"], ["created_at", "2016-02-16 15:05:36.271739"], ["updated_at", "2016-02-16 15:05:36.271739"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["author_id", 68], ["title", "laboriosam"], ["created_at", "2016-02-16 15:05:36.274079"], ["updated_at", "2016-02-16 15:05:36.274079"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.6ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'amira' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'amira@reynolds.io' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "amira"], ["email", "amira@reynolds.io"], ["admin", "t"], ["password_digest", "$2a$04$lcBAsp5yrZAmBmgrqLURJut8k2cojwvWRY0RoOClkIIRBd8iWQ2My"], ["created_at", "2016-02-16 15:56:35.308141"], ["updated_at", "2016-02-16 15:56:35.308141"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["author_id", 69], ["title", "animi"], ["created_at", "2016-02-16 15:56:35.314363"], ["updated_at", "2016-02-16 15:56:35.314363"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'rahul' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'jasmin@ortizhaley.info' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "rahul"], ["email", "jasmin@ortizhaley.info"], ["admin", "t"], ["password_digest", "$2a$04$0ZrK7xkiZZedKxJki4d.rOKqH8PmWXaeEMN.K9ipdV9AaZfL10hCO"], ["created_at", "2016-02-16 15:56:35.321057"], ["updated_at", "2016-02-16 15:56:35.321057"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'chris' LIMIT 1[0m
+  [1m[35mUser Exists (0.1ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'malvina.daniel@lindgren.name' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "chris"], ["email", "malvina.daniel@lindgren.name"], ["admin", "t"], ["password_digest", "$2a$04$3JTR235/U.l4Eu5psHufX.dQaJQjAYO43bM3wtqrgu5W1h38hV39e"], ["created_at", "2016-02-16 15:56:35.330235"], ["updated_at", "2016-02-16 15:56:35.330235"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["author_id", 71], ["title", "ut"], ["created_at", "2016-02-16 15:56:35.332064"], ["updated_at", "2016-02-16 15:56:35.332064"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'marian' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'mikel@rice.name' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "marian"], ["email", "mikel@rice.name"], ["admin", "t"], ["password_digest", "$2a$04$n7NaRl.N1vQEdLMNNN.twOXmhKoMtjnKCtC3kdvniDCeEFb6sYNAq"], ["created_at", "2016-02-16 15:56:35.343425"], ["updated_at", "2016-02-16 15:56:35.343425"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "versions" ("article_id", "author_id", "content", "published", "image_url", "image_caption", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["article_id", 30], ["author_id", 72], ["content", "Distinctio veritatis eos perspiciatis est asperiores quia et. Et libero autem voluptatibus beatae et et corporis. Et non eum alias aut ad. Iste reprehenderit voluptates dolorem."], ["published", "t"], ["image_url", "https://robohash.org/culpadolortenetur.png?size=300x300&set=set1"], ["image_caption", "Veniam amet laborum tempore sit saepe aut rem."], ["created_at", "2016-02-16 15:56:35.346324"], ["updated_at", "2016-02-16 15:56:35.346324"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mVersion Load (0.2ms)[0m  SELECT  "versions".* FROM "versions" WHERE "versions"."article_id" = $1  ORDER BY "versions"."id" DESC LIMIT 1  [["article_id", 30]]
+  [1m[36mVersion Load (0.2ms)[0m  [1mSELECT  "versions".* FROM "versions" WHERE "versions"."article_id" = $1  ORDER BY "versions"."id" DESC LIMIT 1[0m  [["article_id", 30]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'guillermo' LIMIT 1[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'vicenta@walkerhyatt.io' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "guillermo"], ["email", "vicenta@walkerhyatt.io"], ["admin", "t"], ["password_digest", "$2a$04$BlJoUuau6Oy.FfZO9t5E5OgtPcSH6.WCJVrPnYa/eBl686fH0feWS"], ["created_at", "2016-02-16 15:56:35.363038"], ["updated_at", "2016-02-16 15:56:35.363038"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["author_id", 73], ["title", "fuga"], ["created_at", "2016-02-16 15:56:35.365072"], ["updated_at", "2016-02-16 15:56:35.365072"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'prince.torp' LIMIT 1[0m
+  [1m[35mUser Exists (0.1ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'yesenia.huel@kaulkebartell.org' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "prince.torp"], ["email", "yesenia.huel@kaulkebartell.org"], ["admin", "t"], ["password_digest", "$2a$04$30fDals.6llaZ4Ol6jISWOkCv3fn6NpXcdNhe.j8aA3GVQhr74KNO"], ["created_at", "2016-02-16 15:56:35.370016"], ["updated_at", "2016-02-16 15:56:35.370016"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "versions" ("article_id", "author_id", "content", "published", "image_url", "image_caption", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["article_id", 31], ["author_id", 74], ["content", "Neque rerum ab vitae. Quo maiores sunt quae. Nulla id quis assumenda non. Et ea veritatis dolor et alias ratione sed."], ["published", "f"], ["image_url", "https://robohash.org/estaliquidminima.png?size=300x300&set=set1"], ["image_caption", "Veritatis ipsam aut sit."], ["created_at", "2016-02-16 15:56:35.372212"], ["updated_at", "2016-02-16 15:56:35.372212"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mVersion Load (0.2ms)[0m  SELECT  "versions".* FROM "versions" WHERE "versions"."article_id" = $1  ORDER BY "versions"."id" DESC LIMIT 1  [["article_id", 31]]
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'neoma_weinat' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'lonie_zulauf@gibson.name' LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "neoma_weinat"], ["email", "lonie_zulauf@gibson.name"], ["admin", "t"], ["password_digest", "$2a$04$0outa62OsOAqtjgqvOrx0eNZaq.Ccs3Y/il0hK7tH6bV9e..cm6NK"], ["created_at", "2016-02-16 15:56:35.380062"], ["updated_at", "2016-02-16 15:56:35.380062"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["author_id", 75], ["title", "est"], ["created_at", "2016-02-16 15:56:35.382063"], ["updated_at", "2016-02-16 15:56:35.382063"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'thaddeus_lehner' LIMIT 1
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'consuelo@conroyglover.biz' LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "thaddeus_lehner"], ["email", "consuelo@conroyglover.biz"], ["admin", "t"], ["password_digest", "$2a$04$/DXAQcJ51Nl9QCmEoKHjv.h5l7asWhyRRsDP7EMTWEmR0nIvpLyRe"], ["created_at", "2016-02-16 15:56:35.387011"], ["updated_at", "2016-02-16 15:56:35.387011"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mCategory Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "categories" WHERE "categories"."name" = 'doloremque' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "categories" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["name", "doloremque"], ["created_at", "2016-02-16 15:56:35.394263"], ["updated_at", "2016-02-16 15:56:35.394263"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mCategory Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "categories" WHERE ("categories"."name" = 'doloremque' AND "categories"."id" != 1) LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "versions" ("article_id", "author_id", "content", "published", "image_url", "image_caption", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["article_id", 32], ["author_id", 76], ["content", "Id modi sint qui officia harum laudantium. Consequatur eum sapiente sunt. Molestias consectetur laborum vel illo saepe adipisci. Quis et temporibus harum eius."], ["published", "t"], ["image_url", "https://robohash.org/aliquamrerumdelectus.png?size=300x300&set=set1"], ["image_caption", "Enim quam deleniti vitae est occaecati hic."], ["created_at", "2016-02-16 15:56:35.408697"], ["updated_at", "2016-02-16 15:56:35.408697"]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "categorizations" ("category_id", "version_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["category_id", 1], ["version_id", 18], ["created_at", "2016-02-16 15:56:35.410078"], ["updated_at", "2016-02-16 15:56:35.410078"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mCategorization Load (0.2ms)[0m  [1mSELECT  "categorizations".* FROM "categorizations" WHERE "categorizations"."version_id" = $1  ORDER BY "categorizations"."id" DESC LIMIT 1[0m  [["version_id", 18]]
+  [1m[35mCategory Load (0.1ms)[0m  SELECT  "categories".* FROM "categories" WHERE "categories"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'dino' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'roman.willms@koerdman.org' LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "dino"], ["email", "roman.willms@koerdman.org"], ["admin", "t"], ["password_digest", "$2a$04$y1fazNUSmw8BVc5EuBdjI.u2fLjACUIWAR92TgOtcJdIOTHH1rvgG"], ["created_at", "2016-02-16 15:56:35.421523"], ["updated_at", "2016-02-16 15:56:35.421523"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["author_id", 77], ["title", "commodi"], ["created_at", "2016-02-16 15:56:35.423369"], ["updated_at", "2016-02-16 15:56:35.423369"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'franz.bogisich' LIMIT 1
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'maxime.harber@murazik.net' LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "franz.bogisich"], ["email", "maxime.harber@murazik.net"], ["admin", "t"], ["password_digest", "$2a$04$bHbsgVe8l96Ppty.KkQmuuLH7TOhXKqmxiHXSuHNEZ3f3.HzviO1e"], ["created_at", "2016-02-16 15:56:35.428259"], ["updated_at", "2016-02-16 15:56:35.428259"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mCategory Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "categories" WHERE "categories"."name" = 'doloremque' LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "categories" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["name", "doloremque"], ["created_at", "2016-02-16 15:56:35.431085"], ["updated_at", "2016-02-16 15:56:35.431085"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mCategory Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "categories" WHERE ("categories"."name" = 'doloremque' AND "categories"."id" != 2) LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "versions" ("article_id", "author_id", "content", "published", "image_url", "image_caption", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["article_id", 33], ["author_id", 78], ["content", "Eos iure aut dignissimos voluptatem quis doloribus. Dolores illum atque velit numquam placeat et. Quae cum voluptatibus aut dolor consequatur dolore."], ["published", "t"], ["image_url", "https://robohash.org/sedaspernaturconsequatur.png?size=300x300&set=set1"], ["image_caption", "Rerum ut molestiae laudantium ut est consequatur."], ["created_at", "2016-02-16 15:56:35.434989"], ["updated_at", "2016-02-16 15:56:35.434989"]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "categorizations" ("category_id", "version_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["category_id", 2], ["version_id", 19], ["created_at", "2016-02-16 15:56:35.436285"], ["updated_at", "2016-02-16 15:56:35.436285"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mCategorization Load (0.2ms)[0m  [1mSELECT  "categorizations".* FROM "categorizations" WHERE "categorizations"."version_id" = $1  ORDER BY "categorizations"."id" DESC LIMIT 1[0m  [["version_id", 19]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mCategory Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "categories" WHERE "categories"."name" = 'et' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "categories" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["name", "et"], ["created_at", "2016-02-16 15:56:35.441772"], ["updated_at", "2016-02-16 15:56:35.441772"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mCategory Exists (0.2ms)[0m  SELECT  1 AS one FROM "categories" WHERE ("categories"."name" = 'et' AND "categories"."id" != 3) LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mCategory Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "categories" WHERE "categories"."name" IS NULL LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'polly_lockman' LIMIT 1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'dayana_thiel@marquardtgrady.net' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "polly_lockman"], ["email", "dayana_thiel@marquardtgrady.net"], ["admin", "t"], ["password_digest", "$2a$04$mBWWrFacuSE/sCPF2fnt2.eQE/6Tk5TN8teT/2aJwOt3hKHvcTIaS"], ["created_at", "2016-02-16 15:56:35.452038"], ["updated_at", "2016-02-16 15:56:35.452038"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["author_id", 79], ["title", "voluptatem"], ["created_at", "2016-02-16 15:56:35.454104"], ["updated_at", "2016-02-16 15:56:35.454104"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'green_daugherty' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'hillary@kuhicstark.name' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "green_daugherty"], ["email", "hillary@kuhicstark.name"], ["admin", "t"], ["password_digest", "$2a$04$NWEhiDRmR6GWFwFrRRyZpeE1k69P4/MnXEKWzpzlGg5qIPe/Srh72"], ["created_at", "2016-02-16 15:56:35.458858"], ["updated_at", "2016-02-16 15:56:35.458858"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mCategory Exists (0.2ms)[0m  SELECT  1 AS one FROM "categories" WHERE "categories"."name" = 'ex' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "categories" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "ex"], ["created_at", "2016-02-16 15:56:35.461853"], ["updated_at", "2016-02-16 15:56:35.461853"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mCategory Exists (0.3ms)[0m  SELECT  1 AS one FROM "categories" WHERE ("categories"."name" = 'ex' AND "categories"."id" != 4) LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "versions" ("article_id", "author_id", "content", "published", "image_url", "image_caption", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["article_id", 34], ["author_id", 80], ["content", "Voluptatum fugit facere molestias. Expedita sint et qui. Et aut inventore sit nostrum velit distinctio."], ["published", "t"], ["image_url", "https://robohash.org/exercitationemteneturenim.png?size=300x300&set=set1"], ["image_caption", "Exercitationem fuga soluta veritatis molestias."], ["created_at", "2016-02-16 15:56:35.466362"], ["updated_at", "2016-02-16 15:56:35.466362"]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "categorizations" ("category_id", "version_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["category_id", 4], ["version_id", 20], ["created_at", "2016-02-16 15:56:35.467770"], ["updated_at", "2016-02-16 15:56:35.467770"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mVersion Exists (0.2ms)[0m  SELECT  1 AS one FROM "versions" INNER JOIN "categorizations" ON "versions"."id" = "categorizations"."version_id" WHERE "categorizations"."category_id" = $1 AND "versions"."id" = $2 LIMIT 1  [["category_id", 4], ["id", 20]]
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mCategory Exists (0.2ms)[0m  SELECT  1 AS one FROM "categories" WHERE "categories"."name" = 'Alex' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "categories" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "Alex"], ["created_at", "2016-02-16 15:56:35.483015"], ["updated_at", "2016-02-16 15:56:35.483015"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mCategory Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "categories" WHERE "categories"."name" = 'Alex' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'bennie' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'kenyon.spinka@kemmermohr.com' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "bennie"], ["email", "kenyon.spinka@kemmermohr.com"], ["admin", "t"], ["password_digest", "$2a$04$rWVuphnQgZOkIwwac5TN5O0BWrLnxrOtmO4TvqV4aajggf1SP9e6C"], ["created_at", "2016-02-16 15:56:35.490823"], ["updated_at", "2016-02-16 15:56:35.490823"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE ("users"."username" = 'bennie' AND "users"."id" != 81) LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE ("users"."email" = 'kenyon.spinka@kemmermohr.com' AND "users"."id" != 81) LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" IS NULL LIMIT 1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'darien@schmidtkub.net' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'carlie' LIMIT 1[0m
+  [1m[35mUser Exists (0.1ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" IS NULL LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'aimee' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'nick@nick.com' LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "aimee"], ["email", "nick@nick.com"], ["admin", "t"], ["password_digest", "$2a$04$6ZfHnhfn/8nA6sHzCTGP7eciP2oguyD8HWAMC/hCqbOeHzEIbV0.W"], ["created_at", "2016-02-16 15:56:35.507894"], ["updated_at", "2016-02-16 15:56:35.507894"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'ursula_hammes' LIMIT 1
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'nick@nick.com' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'orlando' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'wilmer.pollich@rennerdibbert.name' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "orlando"], ["email", "wilmer.pollich@rennerdibbert.name"], ["admin", "t"], ["password_digest", "$2a$04$pgv0M9cvHD3VcaEwfceyZOprjKFgL2B755JajxmSonYnuDoLkE4hm"], ["created_at", "2016-02-16 15:56:35.518051"], ["updated_at", "2016-02-16 15:56:35.518051"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["author_id", 83], ["title", "a"], ["created_at", "2016-02-16 15:56:35.519946"], ["updated_at", "2016-02-16 15:56:35.519946"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'myra' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'robyn@andersonleannon.biz' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "myra"], ["email", "robyn@andersonleannon.biz"], ["admin", "t"], ["password_digest", "$2a$04$nla6rwjB61QlRVrOeUG0TeiDWM73AETPE7KiYsSCGDq/CWWCK7/sO"], ["created_at", "2016-02-16 15:56:35.524683"], ["updated_at", "2016-02-16 15:56:35.524683"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "versions" ("article_id", "author_id", "content", "published", "image_url", "image_caption", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["article_id", 35], ["author_id", 84], ["content", "Deleniti aut aut quam ex velit quia enim. Dolor ipsa velit. Asperiores dolores placeat ipsa temporibus. Soluta aut in accusamus suscipit dolores."], ["published", "f"], ["image_url", "https://robohash.org/aliquamhicofficia.png?size=300x300&set=set1"], ["image_caption", "Est tenetur neque magni repellat ex in excepturi eum."], ["created_at", "2016-02-16 15:56:35.527002"], ["updated_at", "2016-02-16 15:56:35.527002"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."username" = 'marley_harber' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'jeanie_sawayn@schuppeschamberger.co' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["username", "marley_harber"], ["email", "jeanie_sawayn@schuppeschamberger.co"], ["admin", "t"], ["password_digest", "$2a$04$8Dv/WP53mnOdnD8bMSWFUuJaEuJasU26koYm20bjhHkNhrG3DzCda"], ["created_at", "2016-02-16 15:56:35.533950"], ["updated_at", "2016-02-16 15:56:35.533950"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."username" = 'levi' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'darron@waters.info' LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "users" ("username", "email", "admin", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["username", "levi"], ["email", "darron@waters.info"], ["admin", "t"], ["password_digest", "$2a$04$/4Qvb6HzGiTG5QDgJ/b64eF0BzBgLrzq0pMdsHzKpQUnZPxoqbx3C"], ["created_at", "2016-02-16 15:56:35.542132"], ["updated_at", "2016-02-16 15:56:35.542132"]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "articles" ("author_id", "title", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["author_id", 86], ["title", "voluptas"], ["created_at", "2016-02-16 15:56:35.544077"], ["updated_at", "2016-02-16 15:56:35.544077"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
