@@ -1,0 +1,16 @@
+<h1><%= @article.title %></h1>
+<!-- <button>Report nastiness</button> -->
+<%= link_to 'Version', article_versions_path(@article) %>
+<%= @version.content %>
+<div>
+<%= image_tag @version.image_url %>
+<figcaption><%= @version.image_caption %></figcaption>
+</div>
+<span>Created: <%= @article.author.username %> on <%= @article.created_at %></span>
+<span>Updated: <%= @version.author.username %> on <%= @version.created_at %></span>
+<% if @categories.any? %>
+  <span>Categories</span>
+  <% @categories.each do |category| %>
+    <%= link_to category.name, category_path(category) %>
+  <% end %>
+<% end %>
