@@ -4,7 +4,21 @@ class Article < ActiveRecord::Base
   validates :author, presence: true
   has_many :versions
 
+  def self.search(search)
+  	if search
+    	self.where(['title LIKE ?', "%#{search}%"])
+  	else
+    	self.all
+  	end
+  end
+
   def published_version
     self.versions.last if self.versions.last.published
+  end
+
+  def self.published
+  	self.all.select do |article|
+  		self.published_version
+  	end
   end
 end
