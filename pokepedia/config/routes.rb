@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root 'articles#index'
   resources :users
   resources :articles do
     resources :versions
@@ -7,7 +8,7 @@ Rails.application.routes.draw do
 
   get '/sessions/new' => 'sessions#new'
   post '/sessions' => 'sessions#create'
-  delete '/sessions' => 'sessions#delete'
+  delete '/sessions' => 'sessions#delete', :as => :session_delete
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
