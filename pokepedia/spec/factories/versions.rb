@@ -7,4 +7,7 @@ FactoryGirl.define do
     image_url { Faker::Avatar.image }
     image_caption { Faker::Lorem.sentence }
   end
+  factory :version_with_category, parent: :version do
+    categories {[FactoryGirl.create(:category)]}
+  end
 end
