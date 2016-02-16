@@ -17,10 +17,10 @@ pokemon_image = ["https://images-na.ssl-images-amazon.com/images/G/01/videogames
 6.times do
   article = Article.create!(title: pokemon.sample, author_id: regular_user2.id)
     2.times do
-    Version.create!(article_id: article.id, author_id: regular_user2.id, content: Faker::Hacker.say_something_smart, published: false, image_url: pokemon_image.sample, image_caption: "YOOOO"  )
+    Version.create!(article_id: article.id, author_id: regular_user2.id, content: Faker::Hacker.say_something_smart, published: false, draft: true, image_url: pokemon_image.sample, image_caption: "YOOOO" )
     end
         1.times do
-    Version.create!(article_id: article.id, author_id: regular_user2.id, content: Faker::Hacker.say_something_smart, published: true, image_url: pokemon_image.sample, image_caption: "GRAVY!"  )
+    Version.create!(article_id: article.id, author_id: regular_user2.id, content: Faker::Hacker.say_something_smart, published: true, draft: false, image_url: pokemon_image.sample, image_caption: "GRAVY!"  )
     end
 end
 
@@ -29,4 +29,6 @@ pokemon_categories = ["ground", "ghost", "psychic", "flying", "bug", "???", "poi
       Category.create!(name: pokemon_categories[i])
 end
 
-
+16.times do
+  Categorization.create!(category_id: rand(10), version_id: rand(24))
+end
