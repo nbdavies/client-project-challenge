@@ -5,7 +5,21 @@ class Article < ActiveRecord::Base
   has_many :versions
   accepts_nested_attributes_for :versions
 
+  def self.search(search)
+  	if search
+    	self.where(['title LIKE ?', "%#{search}%"])
+  	else
+    	self.all
+  	end
+  end
+
   def published_version
     self.versions.last if self.versions.last.published
+  end
+
+  def self.published
+  	self.all.select do |article|
+  		self.published_version
+  	end
   end
 end

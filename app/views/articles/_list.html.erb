@@ -1,0 +1,13 @@
+<% if @articles %>
+	<ul>
+	<% @articles.each do |article| %>
+	  <li>
+	    <%= link_to article.title, article_path(article) %>
+	  </li>
+	<% end %>
+	</ul>
+<% end %>
+
+<% if current_user %>
+  <%= link_to "Create a new article", new_article_path %>
+<% end %>

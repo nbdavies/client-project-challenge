@@ -1,12 +1,4 @@
 <h1>Most recently updated articles</h1>
-<ul>
-<% @articles.each do |article| %>
-  <li>
-    <%= link_to article.title, article_path(article) %>
-  </li>
-<% end %>
-</ul>
 
-<% if current_user %>
-  <%= link_to "Create a new article", new_article_path %>
-<% end %>
+<%= render :list %>
+
