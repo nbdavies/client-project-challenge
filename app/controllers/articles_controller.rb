@@ -9,7 +9,7 @@ class ArticlesController < ApplicationController
   end
 
   def search
-    @articles = Article.search(params[:search])
+    @articles = Article.search(params[:q])
   end
 
   def show

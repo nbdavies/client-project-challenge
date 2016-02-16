@@ -6,13 +6,19 @@ class Article < ActiveRecord::Base
 
   def self.search(search)
   	if search
-    	find(:all, :conditions => ['name LIKE ?', "%#{search}%"])
+    	self.where(['title LIKE ?', "%#{search}%"])
   	else
-    	find(:all)
+    	self.all
   	end
   end
 
   def published_version
     self.versions.last if self.versions.last.published
+  end
+
+  def self.published
+  	self.all.select do |article|
+  		self.published_version
+  	end
   end
 end
