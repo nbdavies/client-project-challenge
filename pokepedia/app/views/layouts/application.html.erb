@@ -7,7 +7,15 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<header>
+  <% if !current_user%>
+    <%= link_to "Register", new_user_path %>
+    <%= link_to "Login", sessions_new_path %>
+  <% else %>
+    <%= link_to "Profile", user_path(current_user.id) %>
+    <%= link_to "Logout", session_delete_path, method: "delete" %>
+  <% end %>
+</header>
 <%= yield %>
 
 </body>
