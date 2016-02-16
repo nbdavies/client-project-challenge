@@ -1,0 +1,8 @@
+<h1>History for article '<%= @article.title %>'</h1>
+<ul>
+  <% @versions.each do |version| %>
+    <li>
+      <%= version.created_at %> - <%= version.author.username %>
+    </li>
+  <% end %>
+</ul>

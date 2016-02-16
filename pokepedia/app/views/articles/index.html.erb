@@ -1,0 +1,8 @@
+<h1>Most recently updated articles</h1>
+<ul>
+<% @articles.each do |article| %>
+  <li>
+    <%= link_to article.title, article_path(article) %>
+  </li>
+<% end %>
+</ul>

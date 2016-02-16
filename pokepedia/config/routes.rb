@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   resources :users
-  resources :articles
-  resources :versions
+  resources :articles do
+    resources :versions
+  end
+  resources :categories
 
   get '/sessions/new' => 'sessions#new'
   post '/sessions' => 'sessions#create'
