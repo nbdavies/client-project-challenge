@@ -8,6 +8,9 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def search
+  end
+
   def show
     @article = Article.find(params[:id])
     @version = @article.published_version
