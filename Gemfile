@@ -33,7 +33,7 @@ gem 'simple_form'
 # gem 'capistrano-rails', group: :development
 gem 'rails_12factor'
 gem 'puma'
-
+gem 'faker'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'simplecov', :require => false, :group => :test
@@ -42,7 +42,7 @@ group :development, :test do
   gem 'capybara'
   gem 'pry'
   gem 'factory_girl_rails'
-  gem 'faker'
+
 end
 
 group :development do
