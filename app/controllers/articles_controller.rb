@@ -1,6 +1,11 @@
 class ArticlesController < ApplicationController
   def index
-    @articles = Article.all.sort_by{ |article| - article.published_version.id }
+    @articles = Article.select do |article|
+      article.published_version
+    end
+    @articles.sort_by! do |article|
+     - article.published_version.id 
+    end
   end
 
   def show
