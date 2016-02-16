@@ -3,6 +3,7 @@ class Article < ActiveRecord::Base
   validates :title, presence: true
   validates :author, presence: true
   has_many :versions
+  accepts_nested_attributes_for :versions
 
   def published_version
     self.versions.last if self.versions.last.published
