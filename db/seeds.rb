@@ -15,6 +15,7 @@ Version.create!(article_id: article1.id, author: User.all.sample, content: Faker
 
 pokemons = ["pikachu","charmander","squirtle","geodude","jynx","eevee","abra","ponyta","poliwag", "alakazam", "nidoran", "charizard", "zapdos", 'magmar', "vulpix", "weedle", "jigglypuff", "machop", "machamp", "haunter", "ditto", "bulbasaur", "dragonite", "pidgey", "nick", "kirby", "ice climbers", "team rocket", "ash", "muk"]
 pokemon_image = ["https://images-na.ssl-images-amazon.com/images/G/01/videogames/detail-page/pokemon.blk-wte.oshawatt.lg.jpg", "http://blogs-images.forbes.com/davidewalt/files/2012/10/pikachu-pokemon.png", "http://img12.deviantart.net/50fb/i/2010/163/5/5/pokemon_traces_007_squirtle_by_riseagainstlife.jpg"]
+
 pokemons.each do |pokemon|
   article = Article.create!(title: pokemon, author: User.all.sample)
     2.times do
