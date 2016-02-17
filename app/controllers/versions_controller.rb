@@ -47,6 +47,12 @@ class VersionsController < ApplicationController
     @content = content_to_html(@version.content)
   end
 
+  def edit
+    @article = Article.find(params[:article_id])
+    @version = Version.find_by(article_id: params[:article_id], id: params[:id])
+
+  end
+
   private
 
   def version_params
