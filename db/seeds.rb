@@ -1,8 +1,8 @@
 require 'faker'
 
-admin_user = User.create!(username: "w", email: "w", password: "w", admin: true)
-regular_user1 = User.create!(username: "a", email: "a", password: "a", admin: false)
-regular_user2 = User.create!(username: "b", email: "b", password: "b", admin: false)
+admin_user = User.create!(username: "oswaldo", email: "o", password: "w", admin: true)
+regular_user1 = User.create!(username: "abe", email: "a", password: "a", admin: false)
+regular_user2 = User.create!(username: "bluto", email: "b", password: "b", admin: false)
 
 article1 = Article.create!(title: "first article", author_id: regular_user1.id)
 
@@ -15,8 +15,8 @@ Version.create!(article_id: article1.id, author_id: regular_user1.id, content: F
 
 pokemon = ["pikachu","charmander","squirtle","geodude","jynx","eevee","abra","ponyta","poliwag"]
 pokemon_image = ["https://images-na.ssl-images-amazon.com/images/G/01/videogames/detail-page/pokemon.blk-wte.oshawatt.lg.jpg", "http://blogs-images.forbes.com/davidewalt/files/2012/10/pikachu-pokemon.png", "http://img12.deviantart.net/50fb/i/2010/163/5/5/pokemon_traces_007_squirtle_by_riseagainstlife.jpg"]
-6.times do
-  article = Article.create!(title: pokemon.sample, author_id: regular_user2.id)
+6.times do |i|
+  article = Article.create!(title: pokemon[i], author_id: regular_user2.id)
     2.times do
     Version.create!(article_id: article.id, author_id: regular_user2.id, content: Faker::Hacker.say_something_smart, published: false, draft: true, image_url: pokemon_image.sample, image_caption: "YOOOO" )
     end
