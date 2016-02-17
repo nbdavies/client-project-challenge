@@ -3,28 +3,6 @@
 <%= form_for @article do |f| %>
  <%= f.label :title %><br>
  <%= f.text_field :title %><br>
-  <ul>
-    <%= f.fields_for :versions do |version_form| %>
-      <li>
-        <%= version_form.label :content %>
-        <%= version_form.text_field :content %>
-
-        <%= version_form.label :image_url %>
-        <%= version_form.text_field :image_url %>
-
-        <%= version_form.label :image_caption %>
-        <%= version_form.text_field :image_caption %>
-
-        <%= version_form.label :draft %>
-        <%= version_form.check_box :draft %>
-
-      <%= f.fields_for :categories do |category_form| %>
-      <%= category_form.select( :name, Category.all.map {|p| [p.name]}.uniq!, :prompt => "Select a Category") %>
-      <% end %>
-
-      </li>
-      <% end %>
-    </ul>
     <%= f.submit %>
   <% end %>
 

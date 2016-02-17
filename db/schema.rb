@@ -46,15 +46,15 @@ ActiveRecord::Schema.define(version: 20160215205413) do
   end
 
   create_table "versions", force: :cascade do |t|
-    t.integer  "article_id",    null: false
-    t.integer  "author_id",     null: false
+    t.integer  "article_id",                    null: false
+    t.integer  "author_id",                     null: false
     t.text     "content"
     t.boolean  "draft"
-    t.boolean  "published"
+    t.boolean  "published",     default: false
     t.string   "image_url"
     t.string   "image_caption"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
 end

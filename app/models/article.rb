@@ -3,7 +3,7 @@ class Article < ActiveRecord::Base
   validates :title, presence: true
   validates :author, presence: true
   has_many :versions
-  accepts_nested_attributes_for :versions
+  accepts_nested_attributes_for :author
 
   def self.search(search)
   	if search
