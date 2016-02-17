@@ -15,8 +15,9 @@
 <h3>Your drafts</h3>
     <% @drafts.each do |draft| %>
       <div class="draft-info">
-        <button>Resume Draft</button>
-        <span class="title"><%= draft.article.title %></span>
+        <!-- <button class="btn">Resume Draft</button> -->
+        <span class="btn"><%= link_to "Resume Draft", edit_article_version_path(article_id: draft.article.id, id: draft.id)%></span>
+        <span class="title"><%= link_to draft.article.title, article_path(draft.article) %></span>
         <span class="details">
           Created <%= time_ago_in_words(draft.created_at) %> ago.
         </span>
