@@ -1,10 +1,24 @@
-<h1>THIS IS YOUR PROFILE</h1>
+<h1>Welcome <%= @user.username %></h1>
 
+<h3>Your published articles</h3>
 <% if @articles %>
   <ul>
   <% @articles.each do |article| %>
     <li>
       <%= link_to article.title, article_path(article) %>
+      Created <%= time_ago_in_words(article.created_at) %> ago.
+    </li>
+  <% end %>
+  </ul>
+<% end %>
+
+<h3>Your drafts</h3>
+<% if @drafts %>
+  <ul>
+    <% @drafts.each do |draft| %>
+    <li>
+
+
     </li>
   <% end %>
   </ul>
