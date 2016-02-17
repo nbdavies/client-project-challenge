@@ -1,0 +1,11 @@
+<% if @versions %>
+  <ul>
+  <% @versions.each do |version| %>
+    <li>
+      <%= link_to version.article.title, article_versions_path(version.article) %>
+      <%= version.author.username %> - <%= time_ago_in_words(version.created_at) %> ago
+    </li>
+  <% end %>
+  </ul>
+<% end %>
+
