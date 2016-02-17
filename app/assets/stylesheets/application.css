@@ -33,3 +33,28 @@ label.collection_check_boxes {
   margin-top: 15px;
   margin-bottom: 15px;
 }
+
+.draft-info {
+  display: inline-block;
+  height: 40px;
+  padding: 10px;
+  width: 450px;
+  margin: 0 auto;
+}
+
+.title{
+  padding-left: 20px;
+}
+
+.draft-info button {
+  height: 23px;
+}
+
+.details {
+  position: relative;
+  float: right;
+}
+
+.welcome {
+
+}
