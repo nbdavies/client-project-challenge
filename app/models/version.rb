@@ -5,4 +5,5 @@ class Version < ActiveRecord::Base
   has_many :categories, through: :categorizations
   validates :article, presence: true
   validates :author, presence: true
+  accepts_nested_attributes_for :categories
 end

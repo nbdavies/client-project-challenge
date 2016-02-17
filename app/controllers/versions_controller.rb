@@ -8,13 +8,17 @@ class VersionsController < ApplicationController
     @article = Article.find(params[:article_id])
     @version = @article.published_version
     @version = @article.versions.new if !@version
-    @categories = Category.all.map(&:name)
+    @categories = Category.all
   end
 
   def create
     redirect_to sessions_new unless current_user
     @version = current_user.versions.new(article_id: params[:article_id], content: version_params[:content], image_url: version_params[:image_url], image_caption: version_params[:image_caption], draft: version_params[:draft])
 
+    categories = version_params[:category_ids] - [""]
+    @version.categories = categories.map do |id|
+      Category.find(id)
+    end
     if @version.save
       if @version.draft != true
         @version.update_attributes(published: true)
@@ -33,14 +37,20 @@ class VersionsController < ApplicationController
 
   def show
     @article = Article.find(params[:article_id])
-    @version = @article.published_version
+    @version = Version.find(params[:id])
     @categories = @version.categories
+    if @version != nil
+      @categories = @version.categories
+    else
+      redirect_to root_path
+    end
+    @content = content_to_html(@version.content)
   end
 
   private
 
   def version_params
-    params.require(:version).permit(:content, :image_url, :image_caption, :draft)
+    params.require(:version).permit(:content, :image_url, :image_caption, :draft, :category_ids => [])
   end
 
 end
