@@ -1,6 +1,6 @@
 class Article < ActiveRecord::Base
   belongs_to :author, class_name: "User"
-  validates :title, presence: true
+  validates :title, presence: true, uniqueness: true
   validates :author, presence: true
   has_many :versions
   accepts_nested_attributes_for :author
@@ -21,7 +21,7 @@ class Article < ActiveRecord::Base
 
   def self.published
   	self.all.select do |article|
-  		self.published_version
+  		article.published_version
   	end
   end
 end

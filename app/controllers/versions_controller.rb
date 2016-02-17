@@ -6,7 +6,8 @@ class VersionsController < ApplicationController
 
   def new
     @article = Article.find(params[:article_id])
-    @version = @article.versions.new
+    @version = @article.published_version
+    @version = @article.versions.new if !@version
   end
 
   def create

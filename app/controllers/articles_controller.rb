@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   def index
-    @articles = Article.all
+    @articles = Article.published
     @articles.each do |article|
       article.versions.select {|version| version.published == true}
     end
