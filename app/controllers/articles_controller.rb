@@ -4,20 +4,6 @@ class ArticlesController < ApplicationController
     @articles.each do |article|
       article.versions.select {|version| version.published == true}
     end
-    # versions.find_by(published: true)
-    # @articles.select |article|
-    # @articles.select do |article|
-    #   article.published_version
-    # end
-    # puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-    # puts @articles
-
-    # @articles = Article.select do |article|
-    #   article.published_version
-    # end
-    # @articles.sort_by! do |article|
-    #  - article.published_version.id
-    # end
   end
 
   def search
@@ -25,6 +11,7 @@ class ArticlesController < ApplicationController
   end
 
   def new
+    redirect_to sessions_new_path unless current_user
     @article = Article.new
   end
 
@@ -42,7 +29,11 @@ class ArticlesController < ApplicationController
   def show
     @article = Article.find(params[:id])
     @version = @article.published_version
-    @categories = @version.categories
+    if @version != nil
+      @categories = @version.categories
+    else
+      redirect_to root_path
+    end
   end
 
   def destroy
@@ -51,9 +42,15 @@ class ArticlesController < ApplicationController
     redirect_to articles_path
   end
 
+  def flag
+    @article = Article.find(params[:id])
+    @article.update(flagged: true)
+    redirect_to @article
+  end
+
   private
 
   def article_params
-    params.require(:article).permit(:title)
+    params.require(:article).permit(:title, :flagged)
   end
 end

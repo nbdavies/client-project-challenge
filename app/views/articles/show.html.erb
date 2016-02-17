@@ -1,27 +1,37 @@
 <div class="row">
 	<h1><%= @article.title %></h1>
 </div>
+
 <div class="row">
+
 	<%= link_to 'Revision History', article_versions_path(@article) %>
-	<button class="btn right">Report nastiness</button>
+	<% if !@article.flagged %>
+		<%= form_tag(controller: "articles", action: "flag", method: "post") %>
+		<%= submit_tag "Report", class: "btn right" %>
+	<% else %>
+		<button class="btn red right z-depth-0">Reported</button>
+	<% end %>
 
 </div>
+
 <div class="row">
 <div class="col s4 m8 left">
 
 <article>
 <%= @version.content %>
 </article>
+
 <footer>
 <p>Created: <%= @article.author.username %> on <%= @article.created_at.to_date %></p>
 <p>Updated: <%= @version.author.username %> on <%= @version.created_at.to_date %></p>
 
-<% if @categories.any? %>
+<% if @categories != nil %>
   <% @categories.each do |category| %>
     <div class="chip"><%= link_to category.name, category_path(category) %></div>
   <% end %>
 <% end %>
 </footer>
+
 </div>
 
 <div class="col m4 right">
