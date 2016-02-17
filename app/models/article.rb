@@ -24,4 +24,5 @@ class Article < ActiveRecord::Base
   		article.published_version
   	end
   end
+
 end
