@@ -8,6 +8,7 @@
 </head>
 <body>
 <header>
+  <%= link_to "Home", root_path %>
   <% if !current_user%>
     <%= link_to "Register", new_user_path %>
     <%= link_to "Login", sessions_new_path %>

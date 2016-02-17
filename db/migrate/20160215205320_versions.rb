@@ -5,7 +5,7 @@ class Versions < ActiveRecord::Migration
       t.integer :author_id, null: false
       t.text :content
       t.boolean :draft
-      t.boolean :published
+      t.boolean :published, default: false
       t.string :image_url
       t.string :image_caption
       t.timestamps null: false

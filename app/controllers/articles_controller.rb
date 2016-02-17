@@ -1,11 +1,23 @@
 class ArticlesController < ApplicationController
   def index
-    @articles = Article.select do |article|
-      article.published_version
+    @articles = Article.all
+    @articles.each do |article|
+      article.versions.select {|version| version.published == true}
     end
-    @articles.sort_by! do |article|
-     - article.published_version.id 
-    end
+    # versions.find_by(published: true)
+    # @articles.select |article|
+    # @articles.select do |article|
+    #   article.published_version
+    # end
+    # puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+    # puts @articles
+
+    # @articles = Article.select do |article|
+    #   article.published_version
+    # end
+    # @articles.sort_by! do |article|
+    #  - article.published_version.id
+    # end
   end
 
   def search
@@ -14,13 +26,13 @@ class ArticlesController < ApplicationController
 
   def new
     @article = Article.new
-    @article.versions.build
   end
 
   def create
-    @article = Article.new(title: article_params, author_id:current_user.id)
+    redirect_to sessions_new_path unless current_user
+    @article = current_user.articles.new(article_params)
     if @article.save
-      redirect_to new_article_version_path(@article.id)
+        redirect_to new_article_version_path(@article.id)
     else
       render 'new'
     end
@@ -42,6 +54,6 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:title, versions_attributes: [:content, :image_url, :image_caption, :draft])
+    params.require(:article).permit(:title)
   end
 end

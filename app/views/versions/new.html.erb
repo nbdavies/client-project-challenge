@@ -1,4 +1,4 @@
-<h1>Add Content to <%=@article.title%></h1>
+<h1>Add Content to <%= @article.title %></h1>
 
 <%= simple_form_for @version, url: [@article, @version] do |f| %>
   <%=f.input :content, as: :text %>
