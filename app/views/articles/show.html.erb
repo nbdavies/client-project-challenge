@@ -7,7 +7,7 @@
   <p>Updated by <%= @version.author.username %> on <%= @version.created_at.to_date %></p>
 	<%= link_to 'Revision History', article_versions_path(@article) %>
 
-  <% if current_user.admin %>
+  <% if current_user.try(:admin) %>
     <%= button_to "Delete", article_path(@article), method: "delete", class: "btn right" %>
   <% end %>
 
@@ -16,8 +16,10 @@
   <% end %>
 
 	<% if !@article.flagged %>
-		<%= form_tag(controller: "articles", action: "flag", method: "post") %>
-		<%= submit_tag "Report", class: "btn right" %>
+    <% if current_user %>
+  		<%= form_tag(controller: "articles", action: "flag", method: "post") %>
+  		<%= submit_tag "Report", class: "btn right" %>
+    <% end %>
 	<% else %>
     <% if current_user.admin %>
       <%= form_tag(controller: "articles", action: "flag", method: "post") %>
