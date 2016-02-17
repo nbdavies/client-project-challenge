@@ -1,4 +1,4 @@
-<h1>Welcome <%= @user.username %></h1>
+<div class="welcome"><h1>Welcome <%= @user.username %></h1></div>
 
 <h3>Your published articles</h3>
 <% if @articles %>
@@ -13,14 +13,13 @@
 <% end %>
 
 <h3>Your drafts</h3>
-  <ul>
-    <% if @drafts.length == 1 %>
-      <%= @drafts.content %>
-    <% else %>
-      <% @drafts.each do |draft| %>
-      <li>
-        <%= draft.content %>
-      </li>
-      <% end %>
+    <% @drafts.each do |draft| %>
+      <div class="draft-info">
+        <button>Resume Draft</button>
+        <span class="title"><%= draft.article.title %></span>
+        <span class="details">
+          Created <%= time_ago_in_words(draft.created_at) %> ago.
+        </span>
+      </div>
     <% end %>
-  </ul>
+
