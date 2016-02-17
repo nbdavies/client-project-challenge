@@ -3,7 +3,8 @@
 </div>
 
 <div class="row">
-
+  <p>Created by <%= @article.author.username %> on <%= @article.created_at.to_date %></p>
+  <p>Updated by <%= @version.author.username %> on <%= @version.created_at.to_date %></p>
 	<%= link_to 'Revision History', article_versions_path(@article) %>
 
   <% if current_user %>
@@ -27,7 +28,7 @@
 </article>
 
 <footer>
-<p>Created by <%= @article.author.username %>  <%= time_ago_in_words(@article.created_at.to_date) %> ago</p>
+
 
 
 <% if @categories != nil %>

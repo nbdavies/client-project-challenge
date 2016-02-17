@@ -5,7 +5,7 @@ class Category < ActiveRecord::Base
 
   def articles
   	versions = self.versions
-  	versions = versions.to_a.select! do |version|
+  	versions = versions.to_a.select do |version|
   		version == version.article.published_version
   	end
   	versions.map! do |version|
