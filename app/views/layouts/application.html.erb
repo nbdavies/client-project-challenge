@@ -2,22 +2,32 @@
 <html>
 <head>
   <title>Pokepedia</title>
+  <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-<header>
-  <% if !current_user%>
-    <%= link_to "Register", new_user_path %>
-    <%= link_to "Login", sessions_new_path %>
-  <% else %>
-    <%= link_to "Profile", user_path(current_user.id) %>
-    <%= link_to "Logout", session_delete_path, method: "delete" %>
-  <% end %>
-  <%= render 'articles/search' %>
-</header>
-<%= yield %>
+  <div class="container">
+  <nav>
+    <div class="nav-wrapper amber darken-4 row">
+      <a href="/" class="center brand-logo">PokePedia</a>
+      <ul id="nav-mobile" class="center hide-on-med-and-down">
+      <% if !current_user%>
+        <li><%= link_to "Register", new_user_path %></li>
+        <li><%= link_to "Login", sessions_new_path %><li>
+      <% else %>
+        <li><%= link_to "Profile", user_path(current_user.id) %></li>
+        <li><%= link_to "Logout", session_delete_path, method: "delete" %></li>
+      <% end %>
+    </ul>
+    <%= render 'articles/search' %>
+    </div>
+  </nav>
 
+  <%= yield %>
+</div>
 </body>
 </html>

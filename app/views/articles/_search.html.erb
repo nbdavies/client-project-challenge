@@ -1,5 +1,8 @@
-<%= form_tag("/articles/search", method: "get") do %>
-  <%= label_tag(:q, "Search for:") %>
-  <%= text_field_tag(:q) %>
-  <%= submit_tag("Search") %>
+<div class="right row">
+<%= form_tag("/articles/search", method: "get", class: "inline") do %>
+	<div class="input-field">
+		<%= search_field_tag(:q, nil, class: "inline") %>
+		<label for="q" class="prefix"><i class="material-icons prefix">search</i></label>
+	</div>
 <% end %>
+</div>
