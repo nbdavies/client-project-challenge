@@ -20,3 +20,16 @@
 .card-title {
 	background-color: rgba(0,0,0,0.0);
 }
+select {
+  display: inline-block;
+}
+span.checkbox {
+  padding-left: 25px;
+}
+label.collection_check_boxes {
+  padding-left: 25px;
+}
+.version_categories {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
