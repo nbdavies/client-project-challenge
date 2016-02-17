@@ -14,7 +14,9 @@ class Article < ActiveRecord::Base
   end
 
   def published_version
-    self.versions.last if self.versions.last.published
+    if self.versions.any?
+      self.versions.last if self.versions.last.published
+    end
   end
 
   def self.published
