@@ -13,7 +13,7 @@ class VersionsController < ApplicationController
     redirect_to sessions_new unless current_user
     @version = current_user.versions.new(article_id: params[:article_id], content: version_params[:content], image_url: version_params[:image_url], image_caption: version_params[:image_caption], draft: version_params[:draft])
     if @version.save
-      if @version.draft == 0
+      if @version.draft == false
         @version.update_attributes(published: true)
         redirect_to article_path(params[:article_id])
       else

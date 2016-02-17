@@ -16,7 +16,7 @@
 <p>Created: <%= @article.author.username %> on <%= @article.created_at.to_date %></p>
 <p>Updated: <%= @version.author.username %> on <%= @version.created_at.to_date %></p>
 
-<% if @categories.any? %>
+<% if @categories != nil %>
   <% @categories.each do |category| %>
     <div class="chip"><%= link_to category.name, category_path(category) %></div>
   <% end %>
