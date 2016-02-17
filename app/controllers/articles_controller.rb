@@ -34,6 +34,7 @@ class ArticlesController < ApplicationController
     else
       redirect_to root_path
     end
+    @content = content_to_html(@version.content)
   end
 
   def destroy

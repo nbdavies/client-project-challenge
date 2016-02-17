@@ -23,7 +23,7 @@
 <div class="col s4 m8 left">
 
 <article>
-<%= @version.content %>
+<%= raw @content %>
 </article>
 
 <footer>
@@ -39,11 +39,13 @@
 
 </div>
 
+<% if @version.image_url != "" %>
 <div class="col m4 right">
 	<div class="card smaller">
 		<div class="card-image">
 <%= image_tag @version.image_url, class: "responsive-img" %>
 <span class="card-title black"><%= @version.image_caption %></span>
 </div></div></div>
+<% end %>
 
 </div>
