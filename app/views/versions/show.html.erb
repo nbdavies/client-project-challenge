@@ -1,16 +1,56 @@
-<h1><%= @article.title %></h1>
-
-<%= link_to 'Version', article_versions_path(@article) %>
-
-<span>Created by: <%= @article.author.username %> on <%= @article.created_at %></span>
-<div>
-<%= @version.content %>
+<div class="row">
+  <h1><%= @article.title %></h1>
 </div>
-<% if @categories.any? %>
+
+<div class="row">
+
+  <p>Created by <%= @article.author.username %> on <%= @article.created_at.to_date %></p>
+  <p>Updated by <%= @version.author.username %> on <%= @version.created_at.to_date %></p>
+
+  <%= link_to 'Revision History', article_versions_path(@article) %>
+
+  <% if current_user %>
+    <%= button_to "Edit", new_article_version_path(@article), method: "get", class: "btn right" %>
+  <% end %>
+
+  <% if !@article.flagged %>
+    <%= form_tag(controller: "articles", action: "flag", method: "post") %>
+    <%= submit_tag "Report", class: "btn right" %>
+  <% else %>
+    <button class="btn red right z-depth-0">Reported</button>
+  <% end %>
+
+</div>
+
+<div class="row">
+<div class="col s4 m8 left">
+
+<article>
+<%= raw @content %>
+</article>
+
+<footer>
+
+
+
+<% if @categories != nil %>
   <span>Categories</span>
   <% @categories.each do |category| %>
-    <%= link_to category.name, category_path(category) %>
+    <div class="chip"><%= link_to category.name, category_path(category) %></div>
   <% end %>
 <% end %>
+</footer>
 
+</div>
+
+<% if @version.image_url != "" %>
+<div class="col m4 right">
+  <div class="card smaller">
+    <div class="card-image">
+<%= image_tag @version.image_url, class: "responsive-img" %>
+<span class="card-title black"><%= @version.image_caption %></span>
+</div></div></div>
+<% end %>
+
+</div>
 
