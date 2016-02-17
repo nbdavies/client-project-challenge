@@ -1,0 +1,10 @@
+<h1>Resume your draft of <%= @article.title %></h1>
+
+<%= simple_form_for @version, url: [@article, @version] do |f| %>
+  <%=f.input :content, as: :text %>
+  <%= f.input :image_url %>
+  <%= f.input :image_caption %>
+  <%= f.input :draft, as: :boolean, checked_value: true, unchecked_value: false %>
+  <%= f.association :categories, collection: @categories, as: :check_boxes, inline_label: false %>
+  <%= f.button :submit %>
+  <% end %>

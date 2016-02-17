@@ -36,22 +36,27 @@ label.collection_check_boxes {
 
 .draft-info {
   display: inline-block;
-  height: 40px;
+  height: 50px;
   padding: 10px;
-  width: 450px;
+  width: 600px;
   margin: 0 auto;
 }
 
 .title{
+  display: inline-block;
+  width: 40px;
   padding-left: 20px;
 }
 
 .draft-info button {
-  height: 23px;
+  height: 30px;
 }
 
 .details {
+  display: inline-block;
+  width: 250px;
   position: relative;
+  top: 8px;
   float: right;
 }
 
