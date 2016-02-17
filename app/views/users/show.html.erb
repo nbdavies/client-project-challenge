@@ -13,13 +13,14 @@
 <% end %>
 
 <h3>Your drafts</h3>
-<% if @drafts %>
   <ul>
-    <% @drafts.each do |draft| %>
-    <li>
-
-
-    </li>
-  <% end %>
+    <% if @drafts.length == 1 %>
+      <%= @drafts.content %>
+    <% else %>
+      <% @drafts.each do |draft| %>
+      <li>
+        <%= draft.content %>
+      </li>
+      <% end %>
+    <% end %>
   </ul>
-<% end %>
