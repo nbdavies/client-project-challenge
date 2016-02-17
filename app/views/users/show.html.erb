@@ -1,5 +1,18 @@
 <div class="welcome"><h1>Welcome <%= @user.username %></h1></div>
 
+<% if @user.admin %>
+<h3>Articles that have been reported nasty </h3>
+<% if @flagged_articles %>
+  <ul>
+    <% @flagged_articles.each do |article| %>
+      <li>
+        <%= link_to article.title, article_path(article) %>
+      </li>
+      <% end %>
+    </ul>
+    <% end %>
+<% end %>
+
 <h3>Your published articles</h3>
 <% if @articles %>
   <ul>
@@ -13,13 +26,17 @@
 <% end %>
 
 <h3>Your drafts</h3>
+
     <% @drafts.each do |draft| %>
+      <% if draft %>
       <div class="draft-info">
-        <button>Resume Draft</button>
+        <button class="btn">Resume Draft</button>
         <span class="title"><%= draft.article.title %></span>
         <span class="details">
           Created <%= time_ago_in_words(draft.created_at) %> ago.
         </span>
       </div>
+      <% end %>
     <% end %>
+
 
