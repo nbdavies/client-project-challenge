@@ -4,6 +4,7 @@ class ArticlesController < ApplicationController
     @articles.each do |article|
       article.versions.select {|version| version.published == true}
     end
+    @articles = @articles.first(10)
   end
 
   def search
@@ -25,6 +26,8 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def destroy
+  end
 
   def show
     @article = Article.find(params[:id])
@@ -45,7 +48,8 @@ class ArticlesController < ApplicationController
 
   def flag
     @article = Article.find(params[:id])
-    @article.update(flagged: true)
+    flagged = (current_user.admin && @article.flagged ? false : true)
+    @article.update(flagged: flagged)
     redirect_to @article
   end
 

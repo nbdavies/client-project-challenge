@@ -60,3 +60,10 @@ label.collection_check_boxes {
   float: right;
 }
 
+.welcome {
+
+}
+
+.display_list {
+  display: inline;
+}

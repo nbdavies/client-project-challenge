@@ -7,6 +7,10 @@
   <p>Updated by <%= @version.author.username %> on <%= @version.created_at.to_date %></p>
 	<%= link_to 'Revision History', article_versions_path(@article) %>
 
+  <% if current_user.admin %>
+    <%= button_to "Delete", article_path(@article), method: "delete", class: "btn right" %>
+  <% end %>
+
   <% if current_user %>
     <%= button_to "Edit", new_article_version_path(@article), method: "get", class: "btn right" %>
   <% end %>
@@ -15,7 +19,12 @@
 		<%= form_tag(controller: "articles", action: "flag", method: "post") %>
 		<%= submit_tag "Report", class: "btn right" %>
 	<% else %>
-		<button class="btn red right z-depth-0">Reported</button>
+    <% if current_user.admin %>
+      <%= form_tag(controller: "articles", action: "flag", method: "post") %>
+      <%= submit_tag "Unreport", class: "btn right red" %>
+    <% else %>
+		  <button class="btn red right z-depth-0">Reported</button>
+    <% end %>
 	<% end %>
 
 </div>
