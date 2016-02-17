@@ -6,14 +6,17 @@ class VersionsController < ApplicationController
 
   def new
     @article = Article.find(params[:article_id])
-    @version = @article.versions.new
+    @version = @article.published_version
+    @version = @article.versions.new if !@version
+    @categories = Category.all.map(&:name)
   end
 
   def create
     redirect_to sessions_new unless current_user
     @version = current_user.versions.new(article_id: params[:article_id], content: version_params[:content], image_url: version_params[:image_url], image_caption: version_params[:image_caption], draft: version_params[:draft])
+
     if @version.save
-      if @version.draft == false
+      if @version.draft != true
         @version.update_attributes(published: true)
         redirect_to article_path(params[:article_id])
       else
@@ -22,6 +25,10 @@ class VersionsController < ApplicationController
     else
       render 'new'
     end
+  end
+
+  def update
+    create
   end
 
   def show

@@ -5,6 +5,11 @@
 <div class="row">
 
 	<%= link_to 'Revision History', article_versions_path(@article) %>
+
+  <% if current_user %>
+    <%= button_to "Edit", new_article_version_path(@article), method: "get", class: "btn right" %>
+  <% end %>
+
 	<% if !@article.flagged %>
 		<%= form_tag(controller: "articles", action: "flag", method: "post") %>
 		<%= submit_tag "Report", class: "btn right" %>
@@ -18,7 +23,7 @@
 <div class="col s4 m8 left">
 
 <article>
-<%= @version.content %>
+<%= raw @content %>
 </article>
 
 <footer>
@@ -34,11 +39,13 @@
 
 </div>
 
+<% if @version.image_url != "" %>
 <div class="col m4 right">
 	<div class="card smaller">
 		<div class="card-image">
 <%= image_tag @version.image_url, class: "responsive-img" %>
 <span class="card-title black"><%= @version.image_caption %></span>
 </div></div></div>
+<% end %>
 
 </div>
