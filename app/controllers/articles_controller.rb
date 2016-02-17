@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   def index
-    @articles = Article.all
+    @articles = Article.published
     @articles.each do |article|
       article.versions.select {|version| version.published == true}
     end
@@ -34,6 +34,7 @@ class ArticlesController < ApplicationController
     else
       redirect_to root_path
     end
+    @content = content_to_html(@version.content)
   end
 
   def destroy
