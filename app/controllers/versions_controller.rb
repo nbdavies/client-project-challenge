@@ -24,6 +24,12 @@ class VersionsController < ApplicationController
     end
   end
 
+  def show
+    @article = Article.find(params[:article_id])
+    @version = @article.published_version
+    @categories = @version.categories
+  end
+
   private
 
   def version_params

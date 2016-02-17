@@ -1,9 +1,8 @@
 <h1><%= @article.title %></h1>
-<!-- <button>Report nastiness</button> -->
+
 <%= link_to 'Version', article_versions_path(@article) %>
 
-
-<span>Created: <%= @article.author.username %> on <%= @article.created_at %></span>
+<span>Created by: <%= @article.author.username %> on <%= @article.created_at %></span>
 <span>Updated: <%= @version.author.username %> on <%= @version.created_at %></span>
 <% if @categories.any? %>
   <span>Categories</span>
