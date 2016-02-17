@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     end
   end
   resources :categories
+  post 'articles/:id/flag' => 'articles#flag', as: :flag
 
   get '/sessions/new' => 'sessions#new'
   post '/sessions' => 'sessions#create'

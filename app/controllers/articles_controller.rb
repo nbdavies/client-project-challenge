@@ -11,6 +11,7 @@ class ArticlesController < ApplicationController
   end
 
   def new
+    redirect_to sessions_new_path unless current_user
     @article = Article.new
   end
 
@@ -41,9 +42,15 @@ class ArticlesController < ApplicationController
     redirect_to articles_path
   end
 
+  def flag
+    @article = Article.find(params[:id])
+    @article.update(flagged: true)
+    redirect_to @article
+  end
+
   private
 
   def article_params
-    params.require(:article).permit(:title)
+    params.require(:article).permit(:title, :flagged)
   end
 end
