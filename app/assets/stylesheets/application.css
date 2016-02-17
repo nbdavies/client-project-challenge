@@ -11,5 +11,12 @@
  * file per style scope.
  *
  *= require_tree .
+ *= require material.min.css
  *= require_self
  */
+.inline {
+	display: inline-block;
+}
+.card-title {
+	background-color: rgba(0,0,0,0.0);
+}
